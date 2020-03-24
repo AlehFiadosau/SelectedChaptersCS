@@ -1,0 +1,15 @@
+F:\учеба\ИГИ\FirstLabTask\src\DataAccessLayer\bin\Debug\netcoreapp3.1\DataAccessLayer.deps.json
+F:\учеба\ИГИ\FirstLabTask\src\DataAccessLayer\bin\Debug\netcoreapp3.1\DataAccessLayer.dll
+F:\учеба\ИГИ\FirstLabTask\src\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.AssemblyInfoInputs.cache
+F:\учеба\ИГИ\FirstLabTask\src\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.AssemblyInfo.cs
+F:\учеба\ИГИ\FirstLabTask\src\DataAccessLayer\bin\Debug\netcoreapp3.1\DataAccessLayer.pdb
+F:\учеба\ИГИ\FirstLabTask\src\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.dll
+F:\учеба\ИГИ\FirstLabTask\src\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.pdb
+D:\учеба\ИГИ\ИГИ\FirstLabTask\src\DataAccessLayer\bin\Debug\netcoreapp3.1\DataAccessLayer.deps.json
+D:\учеба\ИГИ\ИГИ\FirstLabTask\src\DataAccessLayer\bin\Debug\netcoreapp3.1\DataAccessLayer.dll
+D:\учеба\ИГИ\ИГИ\FirstLabTask\src\DataAccessLayer\bin\Debug\netcoreapp3.1\DataAccessLayer.pdb
+D:\учеба\ИГИ\ИГИ\FirstLabTask\src\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.csprojAssemblyReference.cache
+D:\учеба\ИГИ\ИГИ\FirstLabTask\src\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.AssemblyInfoInputs.cache
+D:\учеба\ИГИ\ИГИ\FirstLabTask\src\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.AssemblyInfo.cs
+D:\учеба\ИГИ\ИГИ\FirstLabTask\src\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.dll
+D:\учеба\ИГИ\ИГИ\FirstLabTask\src\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.pdb
