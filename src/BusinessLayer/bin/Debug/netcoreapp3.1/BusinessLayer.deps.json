@@ -10,8 +10,7 @@
         "dependencies": {
           "AutoMapper": "9.0.0",
           "DataAccessLayer": "1.0.0",
-          "EPPlus": "4.5.3.3",
-          "DataAccessLayer.Reference": "1.0.0.0"
+          "EPPlus": "4.5.3.3"
         },
         "runtime": {
           "BusinessLayer.dll": {}
@@ -751,12 +750,14 @@
           }
         }
       },
-      "DataAccessLayer.Reference/1.0.0.0": {
+      "DataAccessLayer/1.0.0": {
+        "dependencies": {
+          "CsvHelper": "15.0.0",
+          "EPPlus": "4.5.3.3",
+          "Newtonsoft.Json": "12.0.3"
+        },
         "runtime": {
-          "DataAccessLayer.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "DataAccessLayer.dll": {}
         }
       }
     }
@@ -1341,8 +1342,8 @@
       "path": "system.xml.xpath.xmldocument/4.3.0",
       "hashPath": "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
     },
-    "DataAccessLayer.Reference/1.0.0.0": {
-      "type": "reference",
+    "DataAccessLayer/1.0.0": {
+      "type": "project",
       "serviceable": false,
       "sha512": ""
     }

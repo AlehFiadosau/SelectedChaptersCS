@@ -15,6 +15,15 @@
           "lib/netstandard2.0/AutoMapper.dll": {}
         }
       },
+      "CommandLineParser/2.7.82": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/CommandLine.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/CommandLine.dll": {}
+        }
+      },
       "CsvHelper/15.0.0": {
         "type": "package",
         "dependencies": {
@@ -1223,6 +1232,36 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
+      },
+      "BusinessLayer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "AutoMapper": "9.0.0",
+          "DataAccessLayer": "1.0.0",
+          "EPPlus": "4.5.3.3"
+        },
+        "compile": {
+          "bin/placeholder/BusinessLayer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BusinessLayer.dll": {}
+        }
+      },
+      "DataAccessLayer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "CsvHelper": "15.0.0",
+          "EPPlus": "4.5.3.3",
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "compile": {
+          "bin/placeholder/DataAccessLayer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DataAccessLayer.dll": {}
+        }
       }
     }
   },
@@ -1242,6 +1281,28 @@
         "lib/netstandard2.0/AutoMapper.dll",
         "lib/netstandard2.0/AutoMapper.pdb",
         "lib/netstandard2.0/AutoMapper.xml"
+      ]
+    },
+    "CommandLineParser/2.7.82": {
+      "sha512": "JnjxBu4++EDnYtDzHskiPrPJ9hAna8amu8qlQx8J+2oZnPddDnkR/0FFtQMDz0Cs0YF2lbyW3OmYfRmIrLNY0A==",
+      "type": "package",
+      "path": "commandlineparser/2.7.82",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CommandLine20.png",
+        "License.md",
+        "README.md",
+        "commandlineparser.2.7.82.nupkg.sha512",
+        "commandlineparser.nuspec",
+        "lib/net40/CommandLine.dll",
+        "lib/net40/CommandLine.xml",
+        "lib/net45/CommandLine.dll",
+        "lib/net45/CommandLine.xml",
+        "lib/net461/CommandLine.dll",
+        "lib/net461/CommandLine.xml",
+        "lib/netstandard2.0/CommandLine.dll",
+        "lib/netstandard2.0/CommandLine.xml"
       ]
     },
     "CsvHelper/15.0.0": {
@@ -4529,34 +4590,46 @@
         "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512",
         "system.xml.xpath.xmldocument.nuspec"
       ]
+    },
+    "BusinessLayer/1.0.0": {
+      "type": "project",
+      "path": "../BusinessLayer/BusinessLayer.csproj",
+      "msbuildProject": "../BusinessLayer/BusinessLayer.csproj"
+    },
+    "DataAccessLayer/1.0.0": {
+      "type": "project",
+      "path": "../DataAccessLayer/DataAccessLayer.csproj",
+      "msbuildProject": "../DataAccessLayer/DataAccessLayer.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "AutoMapper >= 9.0.0",
+      "BusinessLayer >= 1.0.0",
+      "CommandLineParser >= 2.7.82",
       "CsvHelper >= 15.0.0",
       "EPPlus >= 4.5.3.3",
       "Newtonsoft.Json >= 12.0.3"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\dfedo\\.nuget\\packages\\": {},
+    "C:\\Users\\yanez\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\учеба\\ИГИ\\ИГИ\\FirstLabTask\\src\\PerformCalcStudents\\PerformCalcStudents.csproj",
+      "projectUniqueName": "F:\\учеба\\ИГИ\\Laba1\\SelectedChaptersCS\\src\\PerformCalcStudents\\PerformCalcStudents.csproj",
       "projectName": "PerformCalcStudents",
-      "projectPath": "D:\\учеба\\ИГИ\\ИГИ\\FirstLabTask\\src\\PerformCalcStudents\\PerformCalcStudents.csproj",
-      "packagesPath": "C:\\Users\\dfedo\\.nuget\\packages\\",
-      "outputPath": "D:\\учеба\\ИГИ\\ИГИ\\FirstLabTask\\src\\PerformCalcStudents\\obj\\",
+      "projectPath": "F:\\учеба\\ИГИ\\Laba1\\SelectedChaptersCS\\src\\PerformCalcStudents\\PerformCalcStudents.csproj",
+      "packagesPath": "C:\\Users\\yanez\\.nuget\\packages\\",
+      "outputPath": "F:\\учеба\\ИГИ\\Laba1\\SelectedChaptersCS\\src\\PerformCalcStudents\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\dfedo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\yanez\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4568,7 +4641,11 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "F:\\учеба\\ИГИ\\Laba1\\SelectedChaptersCS\\src\\BusinessLayer\\BusinessLayer.csproj": {
+              "projectPath": "F:\\учеба\\ИГИ\\Laba1\\SelectedChaptersCS\\src\\BusinessLayer\\BusinessLayer.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -4583,6 +4660,10 @@
           "AutoMapper": {
             "target": "Package",
             "version": "[9.0.0, )"
+          },
+          "CommandLineParser": {
+            "target": "Package",
+            "version": "[2.7.82, )"
           },
           "CsvHelper": {
             "target": "Package",
@@ -4612,7 +4693,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

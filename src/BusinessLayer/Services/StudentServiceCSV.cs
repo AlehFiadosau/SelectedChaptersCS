@@ -23,7 +23,7 @@ namespace BusinessLayer.Services
         public void Create(IEnumerable<StudentDto> item, string path)
         {
             var studentsToWrite = new List<StudentToWrite>();
-            var averageForStudents = new AverageForStudents();
+            var averageForStudents = new AverageMarks();
 
             foreach (var student in item)
             {
@@ -32,7 +32,7 @@ namespace BusinessLayer.Services
                     FirstName = student.FirstName,
                     Surname = student.Surname,
                     Patronymic = student.Patronymic,
-                    AverageMarks = averageForStudents.AverageScoreStudent(student),
+                    AverageMarks = averageForStudents.AverageMarksStudent(student),
                 };
                 studentsToWrite.Add(studentToWrite);
             }

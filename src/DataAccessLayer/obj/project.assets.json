@@ -4372,23 +4372,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\dfedo\\.nuget\\packages\\": {},
+    "C:\\Users\\yanez\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\учеба\\ИГИ\\ИГИ\\FirstLabTask\\src\\DataAccessLayer\\DataAccessLayer.csproj",
+      "projectUniqueName": "F:\\учеба\\ИГИ\\Laba1\\SelectedChaptersCS\\src\\DataAccessLayer\\DataAccessLayer.csproj",
       "projectName": "DataAccessLayer",
-      "projectPath": "D:\\учеба\\ИГИ\\ИГИ\\FirstLabTask\\src\\DataAccessLayer\\DataAccessLayer.csproj",
-      "packagesPath": "C:\\Users\\dfedo\\.nuget\\packages\\",
-      "outputPath": "D:\\учеба\\ИГИ\\ИГИ\\FirstLabTask\\src\\DataAccessLayer\\obj\\",
+      "projectPath": "F:\\учеба\\ИГИ\\Laba1\\SelectedChaptersCS\\src\\DataAccessLayer\\DataAccessLayer.csproj",
+      "packagesPath": "C:\\Users\\yanez\\.nuget\\packages\\",
+      "outputPath": "F:\\учеба\\ИГИ\\Laba1\\SelectedChaptersCS\\src\\DataAccessLayer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\dfedo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\yanez\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4440,7 +4440,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

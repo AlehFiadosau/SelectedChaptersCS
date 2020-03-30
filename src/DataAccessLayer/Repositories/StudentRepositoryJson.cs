@@ -26,7 +26,7 @@ namespace DataAccessLayer.Repositories
 
         public IEnumerable<Student> GetAll(string path)
         {
-            IEnumerable<Student> students = JsonConvert.DeserializeObject<List<Student>>(File.ReadAllText(path));
+            var students = JsonConvert.DeserializeObject<IEnumerable<Student>>(File.ReadAllText(path));
 
             return students;
         }

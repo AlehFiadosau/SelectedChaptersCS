@@ -13,10 +13,4 @@
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="DataAccessLayer">
-      <HintPath>..\DataAccessLayer\bin\Debug\netcoreapp3.1\DataAccessLayer.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>

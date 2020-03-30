@@ -9,10 +9,11 @@
       "PerformCalcStudents/1.0.0": {
         "dependencies": {
           "AutoMapper": "9.0.0",
+          "BusinessLayer": "1.0.0",
+          "CommandLineParser": "2.7.82",
           "CsvHelper": "15.0.0",
           "EPPlus": "4.5.3.3",
-          "Newtonsoft.Json": "12.0.3",
-          "BusinessLayer": "1.0.0.0"
+          "Newtonsoft.Json": "12.0.3"
         },
         "runtime": {
           "PerformCalcStudents.dll": {}
@@ -27,6 +28,14 @@
           "lib/netstandard2.0/AutoMapper.dll": {
             "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.0.0"
+          }
+        }
+      },
+      "CommandLineParser/2.7.82": {
+        "runtime": {
+          "lib/netstandard2.0/CommandLine.dll": {
+            "assemblyVersion": "2.7.82.0",
+            "fileVersion": "2.7.82.0"
           }
         }
       },
@@ -752,20 +761,24 @@
           }
         }
       },
-      "BusinessLayer/1.0.0.0": {
+      "BusinessLayer/1.0.0": {
+        "dependencies": {
+          "AutoMapper": "9.0.0",
+          "DataAccessLayer": "1.0.0",
+          "EPPlus": "4.5.3.3"
+        },
         "runtime": {
-          "BusinessLayer.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "BusinessLayer.dll": {}
         }
       },
-      "DataAccessLayer/1.0.0.0": {
+      "DataAccessLayer/1.0.0": {
+        "dependencies": {
+          "CsvHelper": "15.0.0",
+          "EPPlus": "4.5.3.3",
+          "Newtonsoft.Json": "12.0.3"
+        },
         "runtime": {
-          "DataAccessLayer.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "DataAccessLayer.dll": {}
         }
       }
     }
@@ -782,6 +795,13 @@
       "sha512": "sha512-xCqvoxT4HIrNY/xlXG9W+BA/awdrhWvMTKTK/igkGSRbhOhpl3Q8O8Gxlhzjc9JsYqE7sS6AxgyuUUvZ6R5/Bw==",
       "path": "automapper/9.0.0",
       "hashPath": "automapper.9.0.0.nupkg.sha512"
+    },
+    "CommandLineParser/2.7.82": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JnjxBu4++EDnYtDzHskiPrPJ9hAna8amu8qlQx8J+2oZnPddDnkR/0FFtQMDz0Cs0YF2lbyW3OmYfRmIrLNY0A==",
+      "path": "commandlineparser/2.7.82",
+      "hashPath": "commandlineparser.2.7.82.nupkg.sha512"
     },
     "CsvHelper/15.0.0": {
       "type": "package",
@@ -1350,13 +1370,13 @@
       "path": "system.xml.xpath.xmldocument/4.3.0",
       "hashPath": "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
     },
-    "BusinessLayer/1.0.0.0": {
-      "type": "reference",
+    "BusinessLayer/1.0.0": {
+      "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "DataAccessLayer/1.0.0.0": {
-      "type": "reference",
+    "DataAccessLayer/1.0.0": {
+      "type": "project",
       "serviceable": false,
       "sha512": ""
     }

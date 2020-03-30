@@ -22,14 +22,14 @@ namespace DataAccessLayer.Repositories
         public void Create(IEnumerable<StudentToWrite> item, double averageGroup, string path)
         {
             string worksheetName = "Students";
-            string averageGroupMark = "Average group mark:";
+            string averageGroupName = "Average group:";
 
             using (var excelPackage = new ExcelPackage())
             {
                 var worksheet = excelPackage.Workbook.Worksheets.Add(worksheetName);
 
                 worksheet.Cells["A1"].LoadFromCollection(item);
-                worksheet.Cells["F1"].Value = averageGroupMark;
+                worksheet.Cells["F1"].Value = averageGroupName;
                 worksheet.Cells["F2"].Value = averageGroup;
 
                 var fileForWrite = new FileInfo(path);
