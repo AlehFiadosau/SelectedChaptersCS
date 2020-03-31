@@ -4,36 +4,21 @@ using System.Linq;
 
 namespace BusinessLayer.Core
 {
-    public class AverageMarks
+    public static class AverageMarks
     {
         /// <summary>
         /// Calculating average marks student
         /// </summary>
         /// <param name="students"></param>
         /// <returns></returns>
-        public double AverageMarksStudent(StudentDto student)
-        {
-            double averageScore = 0;
-            averageScore = student.Marks.Average();
-
-            return averageScore;
-        }
+        public static double AverageMarksStudent(this StudentDto student) => student.Marks.Average();
 
         /// <summary>
         /// Calculating average marks group
         /// </summary>
         /// <param name="students"></param>
         /// <returns></returns>
-        public double AverageForGroup(List<StudentDto> students)
-        {
-            var averageforGroup = new List<double>();
-
-            foreach (var student in students)
-            {
-                averageforGroup.Add(student.Marks.Average());
-            }
-
-            return averageforGroup.Average();
-        }
+        public static double AverageForGroup(this IEnumerable<StudentDto> students)
+            => students.Select(s => s.AverageMarksStudent()).Average();
     }
 }

@@ -7,18 +7,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("BusinessLayer")]
 namespace DataAccessLayer.Repositories
 {
-    internal class StudentRepositoryCSV : IRepository
+    public class StudentRepositoryCSV : IRepository
     {
-
-        public StudentRepositoryCSV()
-        {
-        }
-
         public void Create(IEnumerable<StudentToWrite> item, double averageGroup, string path)
         {
             string worksheetName = "Students";

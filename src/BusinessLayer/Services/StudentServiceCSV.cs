@@ -5,13 +5,12 @@ using System.Collections.Generic;
 using AutoMapper;
 using System.Linq;
 using DataAccessLayer.Repositories;
-using System.Runtime.CompilerServices;
 using BusinessLayer.Core;
+using BusinessLayer.Interfaces;
 
-[assembly: InternalsVisibleTo("DataAccessLayer")]
 namespace BusinessLayer.Services
 {
-    public class StudentServiceCSV
+    public class StudentServiceCSV : IService
     {
         private readonly IRepository _studentRepository;
 
@@ -23,7 +22,6 @@ namespace BusinessLayer.Services
         public void Create(IEnumerable<StudentDto> item, string path)
         {
             var studentsToWrite = new List<StudentToWrite>();
-            var averageForStudents = new AverageMarks();
 
             foreach (var student in item)
             {
@@ -32,12 +30,12 @@ namespace BusinessLayer.Services
                     FirstName = student.FirstName,
                     Surname = student.Surname,
                     Patronymic = student.Patronymic,
-                    AverageMarks = averageForStudents.AverageMarksStudent(student),
+                    AverageMarks = AverageMarks.AverageMarksStudent(student),
                 };
                 studentsToWrite.Add(studentToWrite);
             }
 
-            _studentRepository.Create(studentsToWrite, averageForStudents.AverageForGroup(item.ToList()), path);
+            _studentRepository.Create(studentsToWrite, AverageMarks.AverageForGroup(item.ToList()), path);
         }
 
         public IEnumerable<StudentDto> GetAll(string path)

@@ -1,17 +1,16 @@
 ﻿using AutoMapper;
 using BusinessLayer.Core;
 using BusinessLayer.DTO;
+using BusinessLayer.Interfaces;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Repositories;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("DataAccessLayer")]
 namespace BusinessLayer.Services
 {
-    public class StudentServiceJson
+    public class StudentServiceJson : IService
     {
         private readonly IRepository _studentRepository;
 
@@ -23,7 +22,6 @@ namespace BusinessLayer.Services
         public void Create(IEnumerable<StudentDto> item, string path)
         {
             var studentsToWrite = new List<StudentToWrite>();
-            var averageForStudents = new AverageMarks();
 
             foreach (var student in item)
             {
@@ -32,13 +30,13 @@ namespace BusinessLayer.Services
                     FirstName = student.FirstName,
                     Surname = student.Surname,
                     Patronymic = student.Patronymic,
-                    AverageMarks = averageForStudents.AverageMarksStudent(student),
+                    AverageMarks = AverageMarks.AverageMarksStudent(student),
                 };
 
                 studentsToWrite.Add(studentToWrite);
             }
 
-            _studentRepository.Create(studentsToWrite, averageForStudents.AverageForGroup(item.ToList()), path);
+            _studentRepository.Create(studentsToWrite, AverageMarks.AverageForGroup(item.ToList()), path);
         }
 
         public IEnumerable<StudentDto> GetAll(string path)

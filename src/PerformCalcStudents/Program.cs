@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
 using BusinessLayer.DTO;
 using BusinessLayer.Services;
@@ -8,28 +7,24 @@ using PerformCalcStudents.CommandLineOptions;
 
 namespace PerformCalcStudents
 {
-    class Program
+    public static class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Parser.Default.ParseArguments<Options>(args)
                .WithParsed(o =>
                {
-                   string fileName = o.InputFile;
-                   string path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\", fileName));
-                   Console.WriteLine(path);
+                   string path = o.InputFile;
                    var students = GetDataCSV(path);
 
                    if (o.FileType == "Excel")
                    {
-                       fileName = o.OutputFile + ".csv";
-                       path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\", fileName));
+                       path = o.OutputFile + ".xlsx";
                        AverageSaveCSV(students, path);
                    }
                    else if (o.FileType == "Json")
                    {
-                       fileName = o.OutputFile + ".json";
-                       path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\", fileName));
+                       path = o.OutputFile + ".json";
                        AverageSaveJson(students, path);
                    }
                });
@@ -37,19 +32,19 @@ namespace PerformCalcStudents
             Console.ReadKey();
         }
 
-        static void AverageSaveCSV(IEnumerable<StudentDto> students, string path)
+        private static void AverageSaveCSV(IEnumerable<StudentDto> students, string path)
         {
             var studentsServiceCSV = new StudentServiceCSV();
             studentsServiceCSV.Create(students, path);
         }
 
-        static void AverageSaveJson(IEnumerable<StudentDto> students, string path)
+        private static void AverageSaveJson(IEnumerable<StudentDto> students, string path)
         {
             var studentsServiceJson = new StudentServiceJson();
             studentsServiceJson.Create(students, path);
         }
 
-        static IEnumerable<StudentDto> GetDataCSV(string path)
+        private static IEnumerable<StudentDto> GetDataCSV(string path)
         {
             var studentsServiceCSV = new StudentServiceCSV();
             var students = studentsServiceCSV.GetAll(path);
