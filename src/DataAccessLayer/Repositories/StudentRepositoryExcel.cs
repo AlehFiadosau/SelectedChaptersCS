@@ -1,8 +1,7 @@
 ﻿using CsvHelper;
-using DataAccessLayer.Entities;
+using DataAccessLayer.DTO;
 using DataAccessLayer.Interfaces;
 using OfficeOpenXml;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -10,12 +9,12 @@ using System.Linq;
 
 namespace DataAccessLayer.Repositories
 {
-    public class StudentRepositoryCSV : IRepository
+    public class StudentRepositoryExcel : IRepository
     {
-        public void Create(IEnumerable<StudentToWrite> item, double averageGroup, string path)
+        public void Create(IEnumerable<StudentToWriteDto> item, double averageGroup, string path)
         {
-            string worksheetName = "Students";
-            string averageGroupName = "Average group:";
+            const string worksheetName = "Students";
+            const string averageGroupName = "Average group:";
 
             using (var excelPackage = new ExcelPackage())
             {
@@ -30,9 +29,10 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public IEnumerable<Student> GetAll(string path)
+        public IEnumerable<StudentDto> GetAll(string path)
         {
-            List<Student> students = new List<Student>();
+            List<StudentDto> students = new List<StudentDto>();
+            const int numberHeadersForMarks = 3;
 
             try
             {
@@ -45,8 +45,8 @@ namespace DataAccessLayer.Repositories
 
                 while (csv.Read())
                 {
-                    var marks = GetMarks(headers.Length - 3, csv, headers);
-                    students.Add(new Student
+                    var marks = GetMarks(headers.Length - numberHeadersForMarks, csv, headers);
+                    students.Add(new StudentDto
                     {
                         FirstName = csv.GetField(headers[0]),
                         Surname = csv.GetField(headers[1]),
@@ -58,10 +58,9 @@ namespace DataAccessLayer.Repositories
                     marks = new int[headers.Length - 3];
                 }
             }
-            catch (CsvHelper.MissingFieldException ex)
+            catch (MissingFieldException)
             {
-                Console.WriteLine(ex.Message);
-                students = new List<Student>();
+                students = new List<StudentDto>();
             }
 
             return students;

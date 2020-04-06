@@ -1,31 +1,31 @@
-﻿using BusinessLayer.DTO;
-using DataAccessLayer.Interfaces;
-using DataAccessLayer.Entities;
+﻿using DataAccessLayer.Interfaces;
 using System.Collections.Generic;
 using AutoMapper;
 using System.Linq;
 using DataAccessLayer.Repositories;
 using BusinessLayer.Core;
 using BusinessLayer.Interfaces;
+using BusinessLayer.Entities;
+using DataAccessLayer.DTO;
 
 namespace BusinessLayer.Services
 {
-    public class StudentServiceCSV : IService
+    public class StudentServiceExcel : IService
     {
         private readonly IRepository _studentRepository;
 
-        public StudentServiceCSV()
+        public StudentServiceExcel()
         {
-            _studentRepository = new StudentRepositoryCSV();
+            _studentRepository = new StudentRepositoryExcel();
         }
 
-        public void Create(IEnumerable<StudentDto> item, string path)
+        public void Create(IEnumerable<Student> item, string path)
         {
-            var studentsToWrite = new List<StudentToWrite>();
+            var studentsToWrite = new List<StudentToWriteDto>();
 
             foreach (var student in item)
             {
-                var studentToWrite = new StudentToWrite
+                var studentToWrite = new StudentToWriteDto
                 {
                     FirstName = student.FirstName,
                     Surname = student.Surname,
@@ -38,10 +38,10 @@ namespace BusinessLayer.Services
             _studentRepository.Create(studentsToWrite, AverageMarks.AverageForGroup(item.ToList()), path);
         }
 
-        public IEnumerable<StudentDto> GetAll(string path)
+        public IEnumerable<Student> GetAll(string path)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Student, StudentDto>()).CreateMapper();
-            var students = mapper.Map<IEnumerable<StudentDto>>(_studentRepository.GetAll(path));
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<StudentDto, Student>()).CreateMapper();
+            var students = mapper.Map<IEnumerable<Student>>(_studentRepository.GetAll(path));
 
             return students;
         }

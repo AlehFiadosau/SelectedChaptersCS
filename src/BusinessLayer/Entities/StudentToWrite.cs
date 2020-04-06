@@ -1,4 +1,4 @@
-﻿namespace DataAccessLayer.Entities
+﻿namespace BusinessLayer.Entities
 {
     public class StudentToWrite
     {

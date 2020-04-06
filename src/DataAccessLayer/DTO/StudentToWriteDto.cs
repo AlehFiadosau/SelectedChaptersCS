@@ -1,6 +1,6 @@
-﻿namespace BusinessLayer.DTO
+﻿namespace DataAccessLayer.DTO
 {
-    public class StudentDto
+    public class StudentToWriteDto
     {
         public string FirstName { get; set; }
 
@@ -8,8 +8,6 @@
 
         public string Patronymic { get; set; }
 
-        public string[] Subjects { get; set; }
-
-        public int[] Marks { get; set; }
+        public double AverageMarks { get; set; }
     }
 }

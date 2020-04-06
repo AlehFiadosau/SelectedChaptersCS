@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using BusinessLayer.Core;
-using BusinessLayer.DTO;
+using BusinessLayer.Entities;
 using BusinessLayer.Interfaces;
-using DataAccessLayer.Entities;
+using DataAccessLayer.DTO;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Repositories;
 using System.Collections.Generic;
@@ -19,13 +19,13 @@ namespace BusinessLayer.Services
             _studentRepository = new StudentRepositoryJson();
         }
 
-        public void Create(IEnumerable<StudentDto> item, string path)
+        public void Create(IEnumerable<Student> item, string path)
         {
-            var studentsToWrite = new List<StudentToWrite>();
+            var studentsToWrite = new List<StudentToWriteDto>();
 
             foreach (var student in item)
             {
-                var studentToWrite = new StudentToWrite
+                var studentToWrite = new StudentToWriteDto
                 {
                     FirstName = student.FirstName,
                     Surname = student.Surname,
@@ -39,10 +39,10 @@ namespace BusinessLayer.Services
             _studentRepository.Create(studentsToWrite, AverageMarks.AverageForGroup(item.ToList()), path);
         }
 
-        public IEnumerable<StudentDto> GetAll(string path)
+        public IEnumerable<Student> GetAll(string path)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Student, StudentDto>()).CreateMapper();
-            var students = mapper.Map<List<StudentDto>>(_studentRepository.GetAll(path));
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<StudentDto, Student>()).CreateMapper();
+            var students = mapper.Map<List<Student>>(_studentRepository.GetAll(path));
 
             return students;
         }

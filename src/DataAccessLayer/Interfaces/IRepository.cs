@@ -1,13 +1,12 @@
-﻿using DataAccessLayer.Entities;
-using System;
+﻿using DataAccessLayer.DTO;
 using System.Collections.Generic;
 
 namespace DataAccessLayer.Interfaces
 {
     public interface IRepository
     {
-        public void Create(IEnumerable<StudentToWrite> item, double averageGroup, string path);
+        void Create(IEnumerable<StudentToWriteDto> item, double averageGroup, string path);
 
-        public IEnumerable<Student> GetAll(string path);
+        IEnumerable<StudentDto> GetAll(string path);
     }
 }

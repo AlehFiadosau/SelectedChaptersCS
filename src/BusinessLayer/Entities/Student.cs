@@ -1,6 +1,6 @@
-﻿namespace BusinessLayer.DTO
+﻿namespace BusinessLayer.Entities
 {
-    public class StudentToWriteDto
+    public class Student
     {
         public string FirstName { get; set; }
 
@@ -8,6 +8,8 @@
 
         public string Patronymic { get; set; }
 
-        public double AverageMarks { get; set; }
+        public string[] Subjects { get; set; }
+
+        public int[] Marks { get; set; }
     }
 }
