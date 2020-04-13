@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "PerformCalcStudents": {
-      "commandName": "Project",
-      "commandLineArgs": "PerformCalcStudents.exe -i F:\\учеба\\ИГИ\\Laba1\\SelectedChaptersCS\\src\\PerformCalcStudents\\Tests\\2_TestFile.csv -o F:\\учеба\\ИГИ\\Laba1\\SelectedChaptersCS\\src\\PerformCalcStudents\\Output\\OutputFile -f Excel"
-    }
-  }
-}
