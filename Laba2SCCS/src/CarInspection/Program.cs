@@ -54,35 +54,35 @@ namespace CarInspection
             }
         }
 
-        private static void Driver()
+        private static void WorkWithDriver()
         {
             var service = _serviceProvider.GetRequiredService<IService<Driver>>();
             var controller = new DriverController(service);
             controller.Start();
         }
 
-        private static void Inspection()
+        private static void WorkWithInspection()
         {
             var service = _serviceProvider.GetRequiredService<IService<Inspection>>();
             var controller = new InspectionController(service);
             controller.Start();
         }
 
-        private static void Inspector()
+        private static void WorkWithInspector()
         {
             var service = _serviceProvider.GetRequiredService<IService<Inspector>>();
             var controller = new InspectorController(service);
             controller.Start();
         }
 
-        private static void Violation()
+        private static void WorkWithViolation()
         {
             var service = _serviceProvider.GetRequiredService<IService<Violation>>();
             var controller = new ViolationController(service);
             controller.Start();
         }
 
-        private static void Violator()
+        private static void WorkWithViolator()
         {
             var service = _serviceProvider.GetRequiredService<IService<Violator>>();
             var controller = new ViolatorController(service);
@@ -92,11 +92,11 @@ namespace CarInspection
         public static void Menu()
         {
             var menu = new EasyConsole.Menu()
-              .Add("Работа с Водителем", () => Driver())
-              .Add("Работа с Инспектором", () => Inspection())
-              .Add("Работа с Инспекцией", () => Inspector())
-              .Add("Работа с Нарушением", () => Violation())
-              .Add("Работа с Нарушителем", () => Violator());
+              .Add("Работа с Водителем", () => WorkWithDriver())
+              .Add("Работа с Инспектором", () => WorkWithInspection())
+              .Add("Работа с Инспекцией", () => WorkWithInspector())
+              .Add("Работа с Нарушением", () => WorkWithViolation())
+              .Add("Работа с Нарушителем", () => WorkWithViolator());
             
             menu.Display();
         }
