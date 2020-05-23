@@ -1,0 +1,57 @@
+﻿@model List<WebCarInspection.Models.InspectorViewModel>
+
+@{
+    ViewData["Title"] = "Inspectors";
+}
+
+<div class="flex-row__space-between" style="margin: 1vw;">
+    <h5>Inspectors</h5>
+    @using (Html.BeginForm("CreateInspector", "Inspector", FormMethod.Get))
+    {
+        <input type="submit" class="btn btn-success" value="Create" />
+    }
+</div>
+<ul style="margin: 2vw;" class="flex-row__space-between">
+    @foreach (var item in Model)
+    {
+        <li>
+            <div class="card" style="width: 25vw;">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item flex-row__space-between">
+                        <div class="alert alert-success" role="alert">First name</div>
+                        <div class="alert alert-light" role="alert">@item.FirstName</div>
+                    </li>
+                    <li class="list-group-item flex-row__space-between">
+                        <div class="alert alert-success" role="alert">Surname</div>
+                        <div class="alert alert-light" role="alert">@item.Surname</div>
+                    </li>
+                    <li class="list-group-item flex-row__space-between">
+                        <div class="alert alert-success" role="alert">Patronic</div>
+                        <div class="alert alert-light" role="alert">@item.Patronic</div>
+                    </li>
+                    <li class="list-group-item flex-row__space-between">
+                        <div class="alert alert-success" role="alert">Phone</div>
+                        <div class="alert alert-light" role="alert">@item.Phone</div>
+                    </li>
+                    <li class="list-group-item flex-row__space-between">
+                        <div class="alert alert-success" role="alert">Personal number</div>
+                        <div class="alert alert-light" role="alert">@item.PersonalNumber</div>
+                    </li>
+                </ul>
+                <div class="card-body flex-row__space-between">
+                    @using (Html.BeginForm("UpdateInspector", "Inspector", FormMethod.Get))
+                    {
+                        @Html.Hidden("inspectorId", @item.Id)
+                        <input type="submit" class="btn btn-success" value="Edit" />
+                    }
+                    @using (Html.BeginForm("DeleteInspector", "Inspector", FormMethod.Get))
+                    {
+                        @Html.Hidden("inspectorId", @item.Id)
+                        <input type="submit" class="btn btn-warning" value="Delete" />
+                    }
+                </div>
+            </div>
+        </li>
+    }
+</ul>
+

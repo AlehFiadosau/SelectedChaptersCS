@@ -1,0 +1,60 @@
+﻿@model WebCarInspection.Models.InspectorViewModel
+
+@{
+    ViewData["Title"] = "Update inspector";
+}
+
+<h5 style="margin: 2vw;">Update inspector</h5>
+<div style="width: 30vw; margin: 3vw;">
+    <div class="form-group">
+        @using (Html.BeginForm("UpdateInspector", "Inspector"))
+        {
+            @Html.HiddenFor(model => model.Id)
+            @Html.AntiForgeryToken()
+            <div>
+                @Html.ValidationSummary(true)
+                <div class="flex-column">
+                    <div>
+                        @Html.LabelFor(model => model.FirstName)
+                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.FirstName)
+                </div>
+                <div class="flex-column">
+                    <div>
+                        @Html.LabelFor(model => model.Surname)
+                        @Html.TextBoxFor(model => model.Surname, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Surname)
+                </div>
+                <div class="flex-column">
+                    <div>
+                        @Html.LabelFor(model => model.Patronic)
+                        @Html.TextBoxFor(model => model.Patronic, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Patronic)
+                </div>
+                <div class="flex-column">
+                    <div>
+                        @Html.LabelFor(model => model.Phone)
+                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Phone)
+                </div>
+                <div class="flex-column">
+                    <div>
+                        @Html.LabelFor(model => model.PersonalNumber)
+                        @Html.TextBoxFor(model => model.PersonalNumber, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.PersonalNumber)
+                </div>
+                <input type="submit" class="btn btn-success" style="margin: 1vw;" value="Save" />
+            </div>
+        }
+        @using (Html.BeginForm("ShowInspectors", "Inspector", FormMethod.Get))
+        {
+            <input type="submit" class="btn btn-secondary" style="margin: 1vw;" value="Cancel" />
+        }
+    </div>
+</div>
+

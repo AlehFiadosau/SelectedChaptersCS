@@ -30,6 +30,7 @@ namespace CarInspection
                 .SetBasePath(Directory.GetCurrentDirectory() + @"\..\..\..\")
                 .AddJsonFile("appsettings.json", false);
             var config = configBuilder.Build();
+
             string connectionName = "dbConnection";
 
             Startup.ConfigureServices(config, serviceCollection, connectionName);

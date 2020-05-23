@@ -1,0 +1,45 @@
+﻿@model List<WebCarInspection.Models.ViolationViewModel>
+
+@{
+    ViewData["Title"] = "Violations";
+}
+
+    <div class="flex-row__space-between" style="margin: 1vw;">
+        <h5>Violations</h5>
+        @using (Html.BeginForm("CreateViolation", "Violation", FormMethod.Get))
+        {
+            <input type="submit" class="btn btn-success" value="Create" />
+        }
+    </div>
+<ul style="margin: 2vw;" class="flex-row__space-between">
+    @foreach (var item in Model)
+    {
+        <li>
+            <div class="card" style="width: 25vw;">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item flex-row__space-between">
+                        <div class="alert alert-success" role="alert">Name</div>
+                        <div class="alert alert-light" role="alert">@item.Name</div>
+                    </li>
+                    <li class="list-group-item flex-row__space-between">
+                        <div class="alert alert-success" role="alert">Description</div>
+                        <div class="alert alert-light" role="alert">@item.Description</div>
+                    </li>
+                </ul>
+                <div class="card-body flex-row__space-between">
+                    @using (Html.BeginForm("UpdateViolation", "Violation", FormMethod.Get))
+                    {
+                        @Html.Hidden("violationId", @item.Id)
+                        <input type="submit" class="btn btn-success" value="Edit" />
+                    }
+                    @using (Html.BeginForm("DeleteViolation", "Violation", FormMethod.Get))
+                    {
+                        @Html.Hidden("violationId", @item.Id)
+                        <input type="submit" class="btn btn-warning" value="Delete" />
+                    }
+                </div>
+            </div>
+        </li>
+    }
+</ul>
+
