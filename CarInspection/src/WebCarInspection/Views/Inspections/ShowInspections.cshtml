@@ -1,0 +1,52 @@
+﻿@model List<InspectionViewModel>
+
+@{
+    ViewData["Title"] = "Inspections";
+}
+
+    <div class="flex-row__space-between" style="margin: 1vw;">
+        <h5>Inspections</h5>
+        <form method="get" asp-action="CreateInspection" asp-controller="Inspections" asp-antiforgery="false">
+            <input type="submit" class="btn btn-success" value="Create" />
+        </form>
+    </div>
+<ul style="margin: 2vw;" class="flex-row__space-between">
+    @foreach (var item in Model)
+    {
+        <li>
+            <div class="card" style="width: 25vw;">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item flex-row__space-between">
+                        <div class="alert alert-success" role="alert">Name</div>
+                        <div class="alert alert-light" role="alert">@item.Name</div>
+                    </li>
+                    <li class="list-group-item flex-row__space-between">
+                        <div class="alert alert-success" role="alert">Description</div>
+                        <div class="alert alert-light" role="alert">@item.Description</div>
+                    </li>
+                    <li class="list-group-item flex-row__space-between">
+                        <div class="alert alert-success" role="alert">Price</div>
+                        <div class="alert alert-light" role="alert">@item.Price</div>
+                    </li>
+                    <li class="list-group-item flex-row__space-between">
+                        <div class="alert alert-success" role="alert">Inspection date</div>
+                        <div class="alert alert-light" role="alert">@item.InspectionDate.ToString("dd.MM.yyyy")</div>
+                    </li>
+                    @await Component.InvokeAsync("GetDriver", new { id = @item.DriverId })
+                    @await Component.InvokeAsync("GetInspector", new { id = @item.InspectorId })
+                </ul>
+                <div class="card-body flex-row__space-between">
+                    <form method="get" asp-action="UpdateInspection" asp-controller="Inspections" asp-antiforgery="false">
+                        <input type="hidden" name="inspectionId" value="@item.Id" />
+                        <input type="submit" class="btn btn-success" value="Edit" />
+                    </form>
+                    <form method="get" asp-action="DeleteInspection" asp-controller="Inspections" asp-antiforgery="false">
+                        <input type="hidden" name="inspectionId" value="@item.Id" />
+                        <input type="submit" class="btn btn-warning" value="Delete" />
+                    </form>
+                </div>
+            </div>
+        </li>
+    }
+</ul>
+

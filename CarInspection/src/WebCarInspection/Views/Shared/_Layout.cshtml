@@ -7,10 +7,6 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/bootstrap-datetimepicker.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/lib/jquery.unobtrusive-ajax/jquery.unobtrusive-ajax.min.js"></script>
 </head>
 <body>
     <header>
@@ -19,19 +15,19 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/Driver/ShowDrivers">Drivers</a>
+                        <a class="nav-link" href="/Drivers/ShowDrivers">Drivers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Inspection/ShowInspections">Inspections</a>
+                        <a class="nav-link" href="/Inspections/ShowInspections">Inspections</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Inspector/ShowInspectors">Inspectors</a>
+                        <a class="nav-link" href="/Inspectors/ShowInspectors">Inspectors</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Violation/ShowViolations">Violations</a>
+                        <a class="nav-link" href="/Violations/ShowViolations">Violations</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Violator/ShowViolators">Violators</a>
+                        <a class="nav-link" href="/Violators/ShowViolators">Violators</a>
                     </li>
                 </ul>
             </div>
@@ -43,9 +39,13 @@
         </main>
     </div>
 
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script src="~/lib/jquery/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="~/js/Main.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>

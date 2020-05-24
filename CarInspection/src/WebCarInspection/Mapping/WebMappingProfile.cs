@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BusinessLayer.Entities;
-using WebCarInspection.Models;
+using WebCarInspection.ViewModels;
 
 namespace WebCarInspection.Mapping
 {

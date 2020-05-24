@@ -4,7 +4,7 @@ using BusinessLayer.Entities;
 using BusinessLayer.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using WebCarInspection.Models;
+using WebCarInspection.ViewModels;
 
 namespace WebCarInspection.Components
 {

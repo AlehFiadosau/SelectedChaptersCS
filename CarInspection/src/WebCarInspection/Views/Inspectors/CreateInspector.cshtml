@@ -1,0 +1,56 @@
+﻿@model InspectorViewModel
+
+@{
+    ViewData["Title"] = "Create inspector";
+}
+
+<h5 style="margin: 2vw;">Create inspector</h5>
+<div style="width: 30vw; margin: 3vw;">
+    <div class="form-group">
+        <form asp-action="CreateInspector" asp-controller="Inspectors" asp-antiforgery="true">
+            <div>
+                <div class="validation" asp-validation-summary="ModelOnly" />
+                <div class="flex-column">
+                    <div>
+                        <label asp-for="FirstName"></label>
+                        <input class="form-control" type="text" asp-for="FirstName" />
+                    </div>
+                    <span asp-validation-for="FirstName" />
+                </div>
+                <div class="flex-column">
+                    <div>
+                        <label asp-for="Surname"></label>
+                        <input class="form-control" type="text" asp-for="Surname" />
+                    </div>
+                    <span asp-validation-for="Surname" />
+                </div>
+                <div class="flex-column">
+                    <div>
+                        <label asp-for="Patronic"></label>
+                        <input class="form-control" type="text" asp-for="Patronic" />
+                    </div>
+                    <span asp-validation-for="Patronic" />
+                </div>
+                <div class="flex-column">
+                    <div>
+                        <label asp-for="Phone"></label>
+                        <input class="form-control" type="number" value="1" asp-for="Phone" />
+                    </div>
+                    <span asp-validation-for="Phone" />
+                </div>
+                <div class="flex-column">
+                    <div>
+                        <label asp-for="PersonalNumber"></label>
+                        <input class="form-control" type="number" value="1" asp-for="PersonalNumber" />
+                    </div>
+                    <span asp-validation-for="PersonalNumber" />
+                </div>
+                <input type="submit" class="btn btn-success" style="margin: 1vw;" value="Create" />
+            </div>
+        </form>
+        <form method="get" asp-action="ShowInspectors" asp-controller="Inspectors" asp-antiforgery="false">
+            <input type="submit" class="btn btn-secondary" style="margin: 1vw;" value="Cancel" />
+        </form>
+    </div>
+</div>
+

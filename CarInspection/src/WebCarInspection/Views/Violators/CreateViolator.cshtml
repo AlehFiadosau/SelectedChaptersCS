@@ -1,0 +1,32 @@
+﻿@model ViolatorViewModel
+
+@{
+    ViewData["Title"] = "Create violator";
+}
+
+<h5 style="margin: 2vw;">Create violator</h5>
+<div style="width: 30vw; margin: 3vw;">
+    <div class="form-group">
+        <form asp-action="CreateViolator" asp-controller="Violators" asp-antiforgery="true">
+            <div class="validation" asp-validation-summary="ModelOnly" />
+            @await Component.InvokeAsync("GetViolations")
+            @await Component.InvokeAsync("GetDrivers")
+            @await Component.InvokeAsync("GetInspectors")
+            <div class="flex-column">
+                <label asp-for="ReinspectionDate"></label>
+                <div class="controls input-append date form_datetime" data-link-field="dtp_input1">
+                    <input name="ReinspectionDate" size="16" type="text" value="@DateTimeOffset.Now" class="form-control" readonly>
+                    <span class="add-on"><i class="icon-remove"></i></span>
+                    <span class="add-on"><i class="icon-th"></i></span>
+                    <span asp-validation-for="ReinspectionDate" />
+                </div>
+                <input type="hidden" id="dtp_input1" value="" /><br />
+            </div>
+            <input type="submit" class="btn btn-success" style="margin: 1vw;" value="Create" />
+        </form>
+        <form method="get" asp-action="ShowViolators" asp-controller="Violators" asp-antiforgery="false">
+            <input type="submit" class="btn btn-secondary" style="margin: 1vw;" value="Cancel" />
+        </form>
+    </div>
+</div>
+

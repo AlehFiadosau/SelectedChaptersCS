@@ -1,0 +1,42 @@
+﻿@model List<ViolationViewModel>
+
+@{
+    ViewData["Title"] = "Violations";
+}
+
+    <div class="flex-row__space-between" style="margin: 1vw;">
+        <h5>Violations</h5>
+        <form method="get" asp-action="CreateViolation" asp-controller="Violations" asp-antiforgery="false">
+            <input type="submit" class="btn btn-success" value="Create" />
+        </form>
+    </div>
+<ul style="margin: 2vw;" class="flex-row__space-between">
+    @foreach (var item in Model)
+    {
+        <li>
+            <div class="card" style="width: 25vw;">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item flex-row__space-between">
+                        <div class="alert alert-success" role="alert">Name</div>
+                        <div class="alert alert-light" role="alert">@item.Name</div>
+                    </li>
+                    <li class="list-group-item flex-row__space-between">
+                        <div class="alert alert-success" role="alert">Description</div>
+                        <div class="alert alert-light" role="alert">@item.Description</div>
+                    </li>
+                </ul>
+                <div class="card-body flex-row__space-between">
+                    <form method="get" asp-action="UpdateViolation" asp-controller="Violations" asp-antiforgery="false">
+                        <input type="hidden" name="violationId" value="@item.Id" />
+                        <input type="submit" class="btn btn-success" value="Edit" />
+                    </form>
+                    <form method="get" asp-action="DeleteViolation" asp-controller="Violations" asp-antiforgery="false">
+                        <input type="hidden" name="violationId" value="@item.Id" />
+                        <input type="submit" class="btn btn-warning" value="Delete" />
+                    </form>
+                </div>
+            </div>
+        </li>
+    }
+</ul>
+

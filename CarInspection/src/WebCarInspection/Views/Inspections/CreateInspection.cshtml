@@ -1,0 +1,54 @@
+﻿@model InspectionViewModel
+
+@{
+    ViewData["Title"] = "Create inspection";
+}
+
+<h5 style="margin: 2vw;">Create inspection</h5>
+<div style="width: 30vw; margin: 3vw;">
+    <div class="form-group">
+        <form asp-action="CreateInspection" asp-controller="Inspections" asp-antiforgery="true">
+            <div>
+                <div class="validation" asp-validation-summary="ModelOnly" />
+                <div class="flex-column">
+                    <div>
+                        <label asp-for="Name"></label>
+                        <input class="form-control" type="text" asp-for="Name" />
+                    </div>
+                    <span asp-validation-for="Name" />
+                </div>
+                <div class="flex-column">
+                    <div>
+                        <label asp-for="Description"></label>
+                        <input class="form-control" type="text" asp-for="Description" />
+                    </div>
+                    <span asp-validation-for="Description" />
+                </div>
+                <div class="flex-column">
+                    <div>
+                        <label asp-for="Price"></label>
+                        <input class="form-control" type="number" value="1" asp-for="Price" />
+                    </div>
+                    <span asp-validation-for="Price" />
+                </div>
+                <div class="flex-column">
+                    <label asp-for="InspectionDate"></label>
+                    <div class="controls input-append date form_datetime" data-link-field="dtp_input1">
+                        <input name="InspectionDate" size="16" type="text" value="@DateTimeOffset.Now" class="form-control" readonly>
+                        <span class="add-on"><i class="icon-remove"></i></span>
+                        <span class="add-on"><i class="icon-th"></i></span>
+                        <span asp-validation-for="InspectionDate" />
+                    </div>
+                    <input type="hidden" id="dtp_input1" value="" /><br />
+                </div>
+                @await Component.InvokeAsync("GetInspectors")
+                @await Component.InvokeAsync("GetDrivers")
+                <input type="submit" class="btn btn-success" style="margin: 1vw;" value="Create" />
+            </div>
+        </form>
+        <form method="get" asp-action="ShowInspections" asp-controller="Inspections" asp-antiforgery="false">
+            <input type="submit" class="btn btn-secondary" style="margin: 1vw;" value="Cancel" />
+        </form>
+    </div>
+</div>
+

@@ -1,0 +1,76 @@
+﻿@model DriverViewModel
+
+@{
+    ViewData["Title"] = "Create driver";
+}
+
+<h5 style="margin: 2vw;">Create driver</h5>
+    <div style="width: 30vw; margin: 3vw;">
+        <div class="form-group">
+            <form asp-action="CreateDriver" asp-controller="Drivers" asp-antiforgery="true">
+                <div>
+                    <div class="validation" asp-validation-summary="ModelOnly" />
+                    <div class="flex-column">
+                        <div>
+                            <label asp-for="FirstName"></label>
+                            <input class="form-control" type="text" asp-for="FirstName" />
+                        </div>
+                        <span asp-validation-for="FirstName" />
+                    </div>
+                    <div class="flex-column">
+                        <div>
+                            <label asp-for="Surname"></label>
+                            <input class="form-control" type="text" asp-for="Surname" />
+                        </div>
+                        <span asp-validation-for="Surname" />
+                    </div>
+                    <div class="flex-column">
+                        <div>
+                            <label asp-for="Patronic"></label>
+                            <input class="form-control" type="text" asp-for="Patronic" />
+                        </div>
+                        <span asp-validation-for="Patronic" />
+                    </div>
+                    <div class="flex-column">
+                        <div>
+                            <label asp-for="Address"></label>
+                            <input class="form-control" type="text" asp-for="Address" />
+                        </div>
+                        <span asp-validation-for="Address" />
+                    </div>
+                    <div class="flex-column">
+                        <label asp-for="DateOfBirth"></label>
+                        <div class="controls input-append date form_datetime" data-link-field="dtp_input1">
+                            <input name="DateOfBirth" size="16" type="text" value="@DateTimeOffset.Now" class="form-control" readonly>
+                            <span class="add-on"><i class="icon-remove"></i></span>
+                            <span class="add-on"><i class="icon-th"></i></span>
+                            <span asp-validation-for="DateOfBirth" />
+                        </div>
+                        <input type="hidden" id="dtp_input1" value="" /><br />
+                    </div>
+                    <div class="flex-column">
+                        <label asp-for="DateOfRights"></label>
+                        <div class="controls input-append date form_datetime" data-link-field="dtp_input1">
+                            <input name="DateOfRights" size="16" type="text" value="@DateTimeOffset.Now" class="form-control" readonly>
+                            <span class="add-on"><i class="icon-remove"></i></span>
+                            <span class="add-on"><i class="icon-th"></i></span>
+                            <span asp-validation-for="DateOfRights" />
+                        </div>
+                        <input type="hidden" id="dtp_input1" value="" /><br />
+                    </div>
+                    <div class="flex-column">
+                        <div>
+                            <label asp-for="LicenseNumber"></label>
+                            <input class="form-control" type="text" asp-for="LicenseNumber" />
+                        </div>
+                        <span asp-validation-for="LicenseNumber" />
+                    </div>
+                    <input type="submit" class="btn btn-success" style="margin: 1vw;" value="Create" />
+                </div>
+            </form>
+            <form method="get" asp-action="ShowDrivers" asp-controller="Drivers" asp-antiforgery="false">
+                <input type="submit" class="btn btn-secondary" style="margin: 1vw;" value="Cancel" />
+            </form>
+        </div>
+    </div>
+
