@@ -3,6 +3,7 @@ using BusinessLayer.Ecxeptions;
 using BusinessLayer.Entities;
 using BusinessLayer.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebCarInspection.ViewModels;
@@ -13,12 +14,15 @@ namespace WebCarInspection.Controllers
     {
         private readonly IService<Driver, int> _driverService;
         private readonly IMapper _mapper;
+        private readonly ILogger<DriversController> _logger;
 
         public DriversController(IService<Driver, int> driverService,
-            IMapper mapper)
+            IMapper mapper,
+            ILogger<DriversController> logger)
         {
             _driverService = driverService;
             _mapper = mapper;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -31,8 +35,9 @@ namespace WebCarInspection.Controllers
 
                 return View(data);
             }
-            catch (NotFoundException)
+            catch (NotFoundException ex)
             {
+                _logger.LogError(ex.Message);
                 var data = new List<DriverViewModel>();
 
                 return View(data);
@@ -79,6 +84,7 @@ namespace WebCarInspection.Controllers
             }
             catch (DateException ex)
             {
+                _logger.LogError(ex.Message);
                 ModelState.AddModelError(string.Empty, ex.Message);
 
                 return await UpdateDriver(driver.Id);
@@ -106,6 +112,7 @@ namespace WebCarInspection.Controllers
             }
             catch (DateException ex)
             {
+                _logger.LogError(ex.Message);
                 ModelState.AddModelError("DataException", ex.Message);
 
                 return CreateDriver();

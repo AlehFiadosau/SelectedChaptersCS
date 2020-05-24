@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using BusinessLayer.Entities;
 using BusinessLayer.Ecxeptions;
+using BusinessLayer.Entities;
 using BusinessLayer.Interfaces;
 using DataAccessLayer.DTO;
 using DataAccessLayer.Interfaces;
@@ -16,7 +16,8 @@ namespace BusinessLayer.Services
         private readonly IGenericRepository<DriverDto, int> _driverRepository;
         private readonly IMapper _mapper;
 
-        public DriverService(IGenericRepository<DriverDto, int> driverRepository, IMapper mapper)
+        public DriverService(IGenericRepository<DriverDto, int> driverRepository,
+            IMapper mapper)
         {
             _driverRepository = driverRepository;
             _mapper = mapper;

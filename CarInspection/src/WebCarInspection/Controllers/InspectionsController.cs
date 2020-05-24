@@ -3,6 +3,7 @@ using BusinessLayer.Ecxeptions;
 using BusinessLayer.Entities;
 using BusinessLayer.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,12 +15,15 @@ namespace WebCarInspection.Controllers
     {
         private readonly IService<Inspection, int> _inspectionService;
         private readonly IMapper _mapper;
+        private readonly ILogger<InspectionsController> _logger;
 
         public InspectionsController(IService<Inspection, int> inspectionService,
-            IMapper mapper)
+            IMapper mapper,
+            ILogger<InspectionsController> logger)
         {
             _inspectionService = inspectionService;
             _mapper = mapper;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -32,8 +36,9 @@ namespace WebCarInspection.Controllers
                
                 return View(data);
             }
-            catch (NotFoundException)
+            catch (NotFoundException ex)
             {
+                _logger.LogError(ex.Message);
                 var data = new List<InspectionViewModel>();
                 
                 return View(data);
@@ -80,12 +85,14 @@ namespace WebCarInspection.Controllers
             }
             catch (DateException ex)
             {
+                _logger.LogError(ex.Message);
                 ModelState.AddModelError(string.Empty, ex.Message);
 
                 return await UpdateInspection(inspection.Id);
             }
             catch (ArgumentException ex)
             {
+                _logger.LogError(ex.Message);
                 ModelState.AddModelError(string.Empty, ex.Message);
 
                 return await UpdateInspection(inspection.Id);
@@ -113,12 +120,14 @@ namespace WebCarInspection.Controllers
             }
             catch (DateException ex)
             {
+                _logger.LogError(ex.Message);
                 ModelState.AddModelError(string.Empty, ex.Message);
 
                 return CreateInspection();
             }
             catch (ArgumentException ex)
             {
+                _logger.LogError(ex.Message);
                 ModelState.AddModelError(string.Empty, ex.Message);
 
                 return CreateInspection();

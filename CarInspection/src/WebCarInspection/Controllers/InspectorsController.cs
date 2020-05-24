@@ -3,6 +3,7 @@ using BusinessLayer.Ecxeptions;
 using BusinessLayer.Entities;
 using BusinessLayer.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,12 +15,15 @@ namespace WebCarInspection.Controllers
     {
         private readonly IService<Inspector, int> _inspectorService;
         private readonly IMapper _mapper;
+        private readonly ILogger<InspectorsController> _logger;
 
         public InspectorsController(IService<Inspector, int> inspectorService,
-            IMapper mapper)
+            IMapper mapper,
+            ILogger<InspectorsController> logger)
         {
             _inspectorService = inspectorService;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<IActionResult> ShowInspectors()
@@ -31,8 +35,9 @@ namespace WebCarInspection.Controllers
 
                 return View(data);
             }
-            catch (NotFoundException)
+            catch (NotFoundException ex)
             {
+                _logger.LogError(ex.Message);
                 var data = new List<InspectorViewModel>();
 
                 return View(data);
@@ -79,6 +84,7 @@ namespace WebCarInspection.Controllers
             }
             catch (ArgumentException ex)
             {
+                _logger.LogError(ex.Message);
                 ModelState.AddModelError(string.Empty, ex.Message);
 
                 return await UpdateInspector(inspector.Id);
@@ -106,6 +112,7 @@ namespace WebCarInspection.Controllers
             }
             catch (ArgumentException ex)
             {
+                _logger.LogError(ex.Message);
                 ModelState.AddModelError(string.Empty, ex.Message);
 
                 return CreateInspector();

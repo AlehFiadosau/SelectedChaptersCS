@@ -3,6 +3,7 @@ using BusinessLayer.Ecxeptions;
 using BusinessLayer.Entities;
 using BusinessLayer.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebCarInspection.ViewModels;
@@ -13,12 +14,15 @@ namespace WebCarInspection.Controllers
     {
         private readonly IService<Violator, int> _violatorService;
         private readonly IMapper _mapper;
+        private readonly ILogger<ViolatorsController> _logger;
 
         public ViolatorsController(IService<Violator, int> violatorService,
-            IMapper mapper)
+            IMapper mapper,
+            ILogger<ViolatorsController> logger)
         {
             _violatorService = violatorService;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<IActionResult> ShowViolators()
@@ -30,8 +34,9 @@ namespace WebCarInspection.Controllers
 
                 return View(data);
             }
-            catch (NotFoundException)
+            catch (NotFoundException ex)
             {
+                _logger.LogError(ex.Message);
                 var data = new List<ViolatorViewModel>();
 
                 return View(data);
@@ -78,6 +83,7 @@ namespace WebCarInspection.Controllers
             }
             catch (DateException ex)
             {
+                _logger.LogError(ex.Message);
                 ModelState.AddModelError(string.Empty, ex.Message);
 
                 return await UpdateViolator(violator.Id);
@@ -105,6 +111,7 @@ namespace WebCarInspection.Controllers
             }
             catch (DateException ex)
             {
+                _logger.LogError(ex.Message);
                 ModelState.AddModelError(string.Empty, ex.Message);
 
                 return CreateViolator();

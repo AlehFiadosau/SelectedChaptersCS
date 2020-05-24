@@ -3,6 +3,7 @@ using BusinessLayer.Ecxeptions;
 using BusinessLayer.Entities;
 using BusinessLayer.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebCarInspection.ViewModels;
@@ -13,12 +14,15 @@ namespace WebCarInspection.Controllers
     {
         private readonly IService<Violation, int> _violationService;
         private readonly IMapper _mapper;
+        private readonly ILogger<ViolationsController> _logger;
 
         public ViolationsController(IService<Violation, int> violationService,
-            IMapper mapper)
+            IMapper mapper,
+            ILogger<ViolationsController> logger)
         {
             _violationService = violationService;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<IActionResult> ShowViolations()
@@ -30,8 +34,9 @@ namespace WebCarInspection.Controllers
 
                 return View(data);
             }
-            catch (NotFoundException)
+            catch (NotFoundException ex)
             {
+                _logger.LogError(ex.Message);
                 var data = new List<ViolationViewModel>();
 
                 return View(data);

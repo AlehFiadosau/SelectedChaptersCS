@@ -21,7 +21,7 @@ namespace WebCarInspection
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
+            
             var mappingConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());
@@ -32,10 +32,12 @@ namespace WebCarInspection
             services.AddSingleton(mapper);
 
             BusinessLayer.Configuration.ServiceCollectionExtensions.RegisterDependencies(Configuration, services, "dbConnection");
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -54,7 +56,7 @@ namespace WebCarInspection
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Drivers}/{action=ShowDrivers}");
+                    pattern: "{controller=Drivers}/{action=ShowDrivers}/{id?}");
             });
         }
     }
