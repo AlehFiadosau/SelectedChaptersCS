@@ -32,7 +32,6 @@ namespace WebCarInspection
             services.AddSingleton(mapper);
 
             BusinessLayer.Configuration.ServiceCollectionExtensions.RegisterDependencies(Configuration, services, "dbConnection");
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

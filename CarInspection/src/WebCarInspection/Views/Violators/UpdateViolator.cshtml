@@ -8,20 +8,17 @@
 <div style="width: 30vw; margin: 3vw;">
     <div class="form-group">
         <form asp-action="UpdateViolator" asp-controller="Violators" asp-antiforgery="true">
-            <input type="hidden" name="Id" value="@Model.Id"/>
-            <input type="hidden" name="DriverId" value="@Model.DriverId"/>
-            <input type="hidden" name="InspectorId" value="@Model.InspectorId"/>
-            <input type="hidden" name="ViolationId" value="@Model.ViolationId"/>
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="hidden" name="DriverId" value="@Model.DriverId" />
+            <input type="hidden" name="InspectorId" value="@Model.InspectorId" />
+            <input type="hidden" name="ViolationId" value="@Model.ViolationId" />
             <div class="validation" asp-validation-summary="ModelOnly" />
             <div class="flex-column">
-                <label asp-for="ReinspectionDate"></label>
-                <div class="controls input-append date form_datetime" data-link-field="dtp_input1">
-                    <input name="ReinspectionDate" size="16" type="text" value="@Model.ReinspectionDate" class="form-control" readonly>
-                    <span class="add-on"><i class="icon-remove"></i></span>
-                    <span class="add-on"><i class="icon-th"></i></span>
-                    <span asp-validation-for="ReinspectionDate" />
+                <div>
+                    <label asp-for="ReinspectionDate"></label>
+                    <input class="form-control" asp-for="ReinspectionDate" />
                 </div>
-                <input type="hidden" id="dtp_input1" value="" /><br />
+                <span asp-validation-for="ReinspectionDate" />
             </div>
             <input type="submit" class="btn btn-success" style="margin: 1vw;" value="Update" />
         </form>

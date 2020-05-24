@@ -35,14 +35,11 @@
                     <span asp-validation-for="Price" />
                 </div>
                 <div class="flex-column">
-                    <label asp-for="InspectionDate"></label>
-                    <div class="controls input-append date form_datetime" data-link-field="dtp_input1">
-                        <input name="InspectionDate" size="16" type="text" value="@Model.InspectionDate" class="form-control" readonly>
-                        <span class="add-on"><i class="icon-remove"></i></span>
-                        <span class="add-on"><i class="icon-th"></i></span>
-                        <span asp-validation-for="InspectionDate" />
+                    <div>
+                        <label asp-for="InspectionDate"></label>
+                        <input class="form-control" asp-for="InspectionDate" />
                     </div>
-                    <input type="hidden" id="dtp_input1" value="" /><br />
+                    <span asp-validation-for="InspectionDate" />
                 </div>
                 <input type="submit" class="btn btn-success" style="margin: 1vw;" value="Save" />
             </div>

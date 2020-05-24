@@ -22,6 +22,7 @@ namespace WebCarInspection.ViewModels
 
         [Display(Name = "InspectionDate")]
         [Required(ErrorMessage = "Required inspection date")]
+        [DataType(DataType.Date)]
         public DateTimeOffset InspectionDate { get; set; }
 
         public int InspectorId { get; set; }

@@ -29,10 +29,12 @@ namespace WebCarInspection.ViewModels
 
         [Display(Name = "Date of birth")]
         [Required(ErrorMessage = "Required date of birth")]
+        [DataType(DataType.Date)]
         public DateTimeOffset DateOfBirth { get; set; }
 
         [Display(Name = "Date of rights")]
         [Required(ErrorMessage = "Required date of rights")]
+        [DataType(DataType.Date)]
         public DateTimeOffset DateOfRights { get; set; }
     }
 }

@@ -9,6 +9,7 @@ namespace WebCarInspection.ViewModels
 
         [Display(Name = "Reinspection date")]
         [Required(ErrorMessage = "Required first reinspection date")]
+        [DataType(DataType.Date)]
         public DateTimeOffset ReinspectionDate { get; set; }
 
         public int ViolationId { get; set; }
