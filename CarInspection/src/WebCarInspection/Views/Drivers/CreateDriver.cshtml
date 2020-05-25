@@ -5,66 +5,70 @@
 }
 
 <h5 style="margin: 2vw;">Create driver</h5>
-    <div style="width: 30vw; margin: 3vw;">
-        <div class="form-group">
-            <form asp-action="CreateDriver" asp-controller="Drivers" asp-antiforgery="true">
-                <div>
-                    <div class="validation" asp-validation-summary="ModelOnly" />
-                    <div class="flex-column">
-                        <div>
-                            <label asp-for="FirstName"></label>
-                            <input class="form-control" type="text" asp-for="FirstName" />
-                        </div>
-                        <span asp-validation-for="FirstName" />
+<div style="width: 30vw; margin: 3vw;">
+    <div class="form-group">
+        <form asp-action="CreateDriver" asp-controller="Drivers" asp-antiforgery="true">
+            <div>
+                <div class="validation" asp-validation-summary="ModelOnly" />
+                <div class="flex-column">
+                    <div>
+                        <label asp-for="FirstName"></label>
+                        <input class="form-control" type="text" asp-for="FirstName" />
                     </div>
-                    <div class="flex-column">
-                        <div>
-                            <label asp-for="Surname"></label>
-                            <input class="form-control" type="text" asp-for="Surname" />
-                        </div>
-                        <span asp-validation-for="Surname" />
-                    </div>
-                    <div class="flex-column">
-                        <div>
-                            <label asp-for="Patronic"></label>
-                            <input class="form-control" type="text" asp-for="Patronic" />
-                        </div>
-                        <span asp-validation-for="Patronic" />
-                    </div>
-                    <div class="flex-column">
-                        <div>
-                            <label asp-for="Address"></label>
-                            <input class="form-control" type="text" asp-for="Address" />
-                        </div>
-                        <span asp-validation-for="Address" />
-                    </div>
-                    <div class="flex-column">
-                        <div>
-                            <label asp-for="DateOfBirth"></label>
-                            <input class="form-control" asp-for="DateOfBirth" />
-                        </div>
-                        <span asp-validation-for="DateOfBirth" />
-                    </div>
-                    <div class="flex-column">
-                        <div>
-                            <label asp-for="DateOfRights"></label>
-                            <input class="form-control" asp-for="DateOfRights" />
-                        </div>
-                        <span asp-validation-for="DateOfRights" />
-                    </div>
-                    <div class="flex-column">
-                        <div>
-                            <label asp-for="LicenseNumber"></label>
-                            <input class="form-control" type="text" asp-for="LicenseNumber" />
-                        </div>
-                        <span asp-validation-for="LicenseNumber" />
-                    </div>
-                    <input type="submit" class="btn btn-success" style="margin: 1vw;" value="Create" />
+                    <span asp-validation-for="FirstName" />
                 </div>
-            </form>
-            <form method="get" asp-action="ShowDrivers" asp-controller="Drivers" asp-antiforgery="false">
-                <input type="submit" class="btn btn-secondary" style="margin: 1vw;" value="Cancel" />
-            </form>
-        </div>
+                <div class="flex-column">
+                    <div>
+                        <label asp-for="Surname"></label>
+                        <input class="form-control" type="text" asp-for="Surname" />
+                    </div>
+                    <span asp-validation-for="Surname" />
+                </div>
+                <div class="flex-column">
+                    <div>
+                        <label asp-for="Patronic"></label>
+                        <input class="form-control" type="text" asp-for="Patronic" />
+                    </div>
+                    <span asp-validation-for="Patronic" />
+                </div>
+                <div class="flex-column">
+                    <div>
+                        <label asp-for="Address"></label>
+                        <input class="form-control" type="text" asp-for="Address" />
+                    </div>
+                    <span asp-validation-for="Address" />
+                </div>
+                <div class="flex-column">
+                    <div>
+                        <label asp-for="DateOfBirth"></label>
+                        <input class="form-control" asp-for="DateOfBirth" />
+                    </div>
+                    <span asp-validation-for="DateOfBirth" />
+                </div>
+                <div class="flex-column">
+                    <div>
+                        <label asp-for="DateOfRights"></label>
+                        <input class="form-control" asp-for="DateOfRights" />
+                    </div>
+                    <span asp-validation-for="DateOfRights" />
+                </div>
+                <div class="flex-column">
+                    <div>
+                        <label asp-for="LicenseNumber"></label>
+                        <input class="form-control" type="text" asp-for="LicenseNumber" />
+                    </div>
+                    <span asp-validation-for="LicenseNumber" />
+                </div>
+                <input type="submit" class="btn btn-success" style="margin: 1vw;" value="Create" />
+            </div>
+        </form>
+        <form method="get" asp-action="ShowDrivers" asp-controller="Drivers" asp-antiforgery="false">
+            <input type="submit" class="btn btn-secondary" style="margin: 1vw;" value="Cancel" />
+        </form>
     </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
 

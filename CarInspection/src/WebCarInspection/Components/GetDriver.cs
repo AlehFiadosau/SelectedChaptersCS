@@ -30,15 +30,14 @@ namespace WebCarInspection.Components
             {
                 var driver = await _driverService.GetByIdAsync(id);
                 var data = _mapper.Map<DriverViewModel>(driver);
+                ViewBag.FirstName = data.FirstName;
 
-                return View(data);
+                return View();
             }
             catch (NotFoundException ex)
             {
                 _logger.LogError(ex.Message);
-                var data = new DriverViewModel();
-
-                return View(data);
+                return View();
             }
         }
     }

@@ -30,15 +30,14 @@ namespace WebCarInspection.Components
             {
                 var inspector = await _inspectorService.GetByIdAsync(id);
                 var data = _mapper.Map<InspectorViewModel>(inspector);
+                ViewBag.FirstName = data.FirstName;
 
-                return View(data);
+                return View();
             }
             catch (NotFoundException ex)
             {
                 _logger.LogError(ex.Message);
-                var data = new InspectorViewModel();
-
-                return View(data);
+                return View();
             }
         }
     }

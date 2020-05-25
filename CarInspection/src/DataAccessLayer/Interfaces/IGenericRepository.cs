@@ -11,8 +11,6 @@ namespace DataAccessLayer.Interfaces
 
         Task<TModel> GetByIdAsync(T id);
 
-        Task SaveAsync();
-
         Task CreateAsync(TModel item);
 
         Task UpdateAsync(TModel item);
