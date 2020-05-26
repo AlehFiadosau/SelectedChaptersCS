@@ -1,0 +1,39 @@
+﻿@model ViolationViewModel
+
+@{
+    ViewData["Title"] = "Create violation";
+}
+
+<h5 style="margin: 2vw;">Create violation</h5>
+<div style="width: 30vw; margin: 3vw;">
+    <div class="form-group">
+        <form asp-action="CreateViolation" asp-controller="Violations" asp-antiforgery="true">
+            <div>
+                <div class="validation" asp-validation-summary="ModelOnly" />
+                <div class="flex-column">
+                    <div>
+                        <label asp-for="Name"></label>
+                        <input class="form-control" type="text" asp-for="Name" />
+                    </div>
+                    <span asp-validation-for="Name" />
+                </div>
+                <div class="flex-column">
+                    <div>
+                        <label asp-for="Description"></label>
+                        <input class="form-control" type="text" asp-for="Description" />
+                    </div>
+                    <span asp-validation-for="Description" />
+                </div>
+                <input type="submit" class="btn btn-success" style="margin: 1vw;" value="Create" />
+            </div>
+        </form>
+        <form method="get" asp-action="ShowViolations" asp-controller="Violations" asp-antiforgery="false">
+            <input type="submit" class="btn btn-secondary" style="margin: 1vw;" value="Cancel" />
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
+

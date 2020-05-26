@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using BusinessLayer.Entities;
 using BusinessLayer.Ecxeptions;
+using BusinessLayer.Entities;
 using BusinessLayer.Interfaces;
 using DataAccessLayer.DTO;
 using DataAccessLayer.Interfaces;
@@ -16,7 +16,8 @@ namespace BusinessLayer.Services
         private readonly IGenericRepository<DriverDto, int> _driverRepository;
         private readonly IMapper _mapper;
 
-        public DriverService(IGenericRepository<DriverDto, int> driverRepository, IMapper mapper)
+        public DriverService(IGenericRepository<DriverDto, int> driverRepository,
+            IMapper mapper)
         {
             _driverRepository = driverRepository;
             _mapper = mapper;
@@ -36,12 +37,12 @@ namespace BusinessLayer.Services
         {
             if (item.DateOfBirth >= DateTimeOffset.Now)
             {
-                throw new DateException("Date of birth cannot be in the past", nameof(item));
+                throw new DateException("Date of birth cannot be in the present or future tense", nameof(item));
             }
 
             if (item.DateOfRights >= DateTimeOffset.Now)
             {
-                throw new DateException("Date of rights cannot be in the past", nameof(item));
+                throw new DateException("Date of rights cannot be in the present or future tense", nameof(item));
             }
 
             if (item.DateOfRights <= item.DateOfBirth)

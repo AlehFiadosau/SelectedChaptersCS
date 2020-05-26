@@ -1,0 +1,32 @@
+﻿@model ViolatorViewModel
+
+@{
+    ViewData["Title"] = "Create violator";
+}
+
+<h5 style="margin: 2vw;">Create violator</h5>
+<div style="width: 30vw; margin: 3vw;">
+    <div class="form-group">
+        <form asp-action="CreateViolator" asp-controller="Violators" asp-antiforgery="true">
+            <div class="validation" asp-validation-summary="ModelOnly" />
+            @await Component.InvokeAsync("GetViolations")
+            @await Component.InvokeAsync("GetDrivers")
+            @await Component.InvokeAsync("GetInspectors")
+            <div class="flex-column">
+                <div>
+                    <label asp-for="ReinspectionDate"></label>
+                    <input class="form-control" asp-for="ReinspectionDate" />
+                </div>
+                <span asp-validation-for="ReinspectionDate" />
+            </div>
+            <input type="submit" class="btn btn-success" style="margin: 1vw;" value="Create" />
+        </form>
+        <form method="get" asp-action="ShowViolators" asp-controller="Violators" asp-antiforgery="false">
+            <input type="submit" class="btn btn-secondary" style="margin: 1vw;" value="Cancel" />
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

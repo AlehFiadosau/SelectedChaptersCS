@@ -1,0 +1,62 @@
+﻿@model List<DriverViewModel>
+ 
+@{
+    ViewData["Title"] = "Drivers";
+}
+
+    <div class="flex-row__space-between" style="margin: 1vw;">
+        <h5>Drivers</h5>
+        <form method="get" asp-action="CreateDriver" asp-controller="Drivers" asp-antiforgery="false">
+            <input type="submit" class="btn btn-success" value="Create" />
+        </form>
+    </div>
+<ul style="margin: 2vw;" class="flex-row__space-between">
+    @foreach (var item in Model)
+    {
+    <li>
+        <div class="card" style="width: 25vw; margin: 2vw;">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item flex-row__space-between">
+                    <div class="alert alert-success" role="alert">First name</div>
+                    <div class="alert alert-light" role="alert">@item.FirstName</div>
+                </li>
+                <li class="list-group-item flex-row__space-between">
+                    <div class="alert alert-success" role="alert">Surname</div>
+                    <div class="alert alert-light" role="alert">@item.Surname</div>
+                </li>
+                <li class="list-group-item flex-row__space-between">
+                    <div class="alert alert-success" role="alert">Patronic</div>
+                    <div class="alert alert-light" role="alert">@item.Patronic</div>
+                </li>
+                <li class="list-group-item flex-row__space-between">
+                    <div class="alert alert-success" role="alert">Address</div>
+                    <div class="alert alert-light" role="alert">@item.Address</div>
+                </li>
+                <li class="list-group-item flex-row__space-between">
+                    <div class="alert alert-success" role="alert">Date of birth</div>
+                    <div class="alert alert-light" role="alert">@item.DateOfBirth.ToString("dd.MM.yyyy")</div>
+                </li>
+                <li class="list-group-item flex-row__space-between">
+                    <div class="alert alert-success" role="alert">Date of rights</div>
+                    <div class="alert alert-light" role="alert">@item.DateOfRights.ToString("dd.MM.yyyy")</div>
+                </li>
+                <li class="list-group-item flex-row__space-between">
+                    <div class="alert alert-success" role="alert">License number</div>
+                    <div class="alert alert-light" role="alert">@item.LicenseNumber</div>
+                </li>
+            </ul>
+            <div class="card-body flex-row__space-between">
+                <form method="get" asp-action="UpdateDriver" asp-controller="Drivers" asp-antiforgery="false">
+                    <input type="hidden" name="driverId" value="@item.Id" />
+                    <input type="submit" class="btn btn-success" value="Edit" />
+                </form>
+                <form method="get" asp-action="DeleteDriver" asp-controller="Drivers" asp-antiforgery="false">
+                    <input type="hidden" name="driverId" value="@item.Id" />
+                    <input type="submit" class="btn btn-warning" value="Delete" />
+                </form>
+            </div>
+        </div>
+    </li>
+    }
+</ul>
+

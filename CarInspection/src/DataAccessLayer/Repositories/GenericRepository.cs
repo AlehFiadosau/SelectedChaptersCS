@@ -28,11 +28,19 @@ namespace DataAccessLayer.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task SaveAsync() => await _context.SaveChangesAsync();
-
         public async Task<IEnumerable<TModel>> GetAllAsync() => await _context.Set<TModel>().AsNoTracking().ToListAsync();
 
-        public async Task<TModel> GetByIdAsync(int id) => await _context.Set<TModel>().FindAsync(id);
+        public async Task<TModel> GetByIdAsync(int id)
+        {
+            var entity = await _context.Set<TModel>().FindAsync(id);
+
+            if (entity != null)
+            {
+                _context.Entry(entity).State = EntityState.Detached;
+            }
+
+            return entity;
+        }
 
         public async Task UpdateAsync(TModel item)
         {

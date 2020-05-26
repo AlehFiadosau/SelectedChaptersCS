@@ -1,0 +1,33 @@
+﻿@model ViolatorViewModel
+
+@{
+    ViewData["Title"] = "Update violator";
+}
+
+<h5 style="margin: 2vw;">Create violator</h5>
+<div style="width: 30vw; margin: 3vw;">
+    <div class="form-group">
+        <form asp-action="UpdateViolator" asp-controller="Violators" asp-antiforgery="true">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="hidden" name="DriverId" value="@Model.DriverId" />
+            <input type="hidden" name="InspectorId" value="@Model.InspectorId" />
+            <input type="hidden" name="ViolationId" value="@Model.ViolationId" />
+            <div class="validation" asp-validation-summary="ModelOnly" />
+            <div class="flex-column">
+                <div>
+                    <label asp-for="ReinspectionDate"></label>
+                    <input class="form-control" asp-for="ReinspectionDate" />
+                </div>
+                <span asp-validation-for="ReinspectionDate" />
+            </div>
+            <input type="submit" class="btn btn-success" style="margin: 1vw;" value="Update" />
+        </form>
+        <form method="get" asp-action="ShowViolators" asp-controller="Violators" asp-antiforgery="false">
+            <input type="submit" class="btn btn-secondary" style="margin: 1vw;" value="Cancel" />
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
