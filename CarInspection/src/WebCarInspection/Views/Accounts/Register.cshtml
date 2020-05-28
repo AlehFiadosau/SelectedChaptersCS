@@ -1,18 +1,21 @@
-﻿@model DriverViewModel
-
+﻿@model RegisterViewModel
 @{
-    ViewData["Title"] = "Create driver";
+    ViewData["Title"] = "Register";
 }
 
-<div class="flex-row__space-between">
-    <h5 style="margin: 2vw;">Create driver</h5>
-    <date></date>
-</div>
+<h5 style="margin: 2vw;">Register</h5>
 <div style="width: 30vw; margin: 3vw;">
     <div class="form-group">
-        <form asp-action="CreateDriver" asp-controller="Drivers" asp-antiforgery="true">
+        <form asp-action="Register" asp-controller="Accounts" asp-antiforgery="true">
             <div>
                 <div class="validation" asp-validation-summary="ModelOnly" />
+                <div class="flex-column">
+                    <div>
+                        <label asp-for="UserName"></label>
+                        <input class="form-control" type="text" asp-for="UserName" />
+                    </div>
+                    <span asp-validation-for="UserName" />
+                </div>
                 <div class="flex-column">
                     <div>
                         <label asp-for="FirstName"></label>
@@ -36,37 +39,20 @@
                 </div>
                 <div class="flex-column">
                     <div>
-                        <label asp-for="Address"></label>
-                        <input class="form-control" type="text" asp-for="Address" />
+                        <label asp-for="Password"></label>
+                        <input class="form-control" type="password" asp-for="Password" />
                     </div>
-                    <span asp-validation-for="Address" />
+                    <span asp-validation-for="Password" />
                 </div>
                 <div class="flex-column">
                     <div>
-                        <label asp-for="DateOfBirth"></label>
-                        <input class="form-control" asp-for="DateOfBirth" />
+                        <label asp-for="ConfirmPassword"></label>
+                        <input class="form-control" type="password" asp-for="ConfirmPassword" />
                     </div>
-                    <span asp-validation-for="DateOfBirth" />
-                </div>
-                <div class="flex-column">
-                    <div>
-                        <label asp-for="DateOfRights"></label>
-                        <input class="form-control" asp-for="DateOfRights" />
-                    </div>
-                    <span asp-validation-for="DateOfRights" />
-                </div>
-                <div class="flex-column">
-                    <div>
-                        <label asp-for="LicenseNumber"></label>
-                        <input class="form-control" type="text" asp-for="LicenseNumber" />
-                    </div>
-                    <span asp-validation-for="LicenseNumber" />
+                    <span asp-validation-for="ConfirmPassword" />
                 </div>
                 <input type="submit" class="btn btn-success" style="margin: 1vw;" value="Create" />
             </div>
-        </form>
-        <form method="get" asp-action="ShowDrivers" asp-controller="Drivers" asp-antiforgery="false">
-            <input type="submit" class="btn btn-secondary" style="margin: 1vw;" value="Cancel" />
         </form>
     </div>
 </div>

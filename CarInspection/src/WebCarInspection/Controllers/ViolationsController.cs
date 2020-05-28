@@ -2,6 +2,7 @@
 using BusinessLayer.Ecxeptions;
 using BusinessLayer.Entities;
 using BusinessLayer.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using WebCarInspection.ViewModels;
 
 namespace WebCarInspection.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class ViolationsController : Controller
     {
         private readonly IService<Violation, int> _violationService;
@@ -25,6 +27,8 @@ namespace WebCarInspection.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> ShowViolations()
         {
             try
@@ -62,9 +66,9 @@ namespace WebCarInspection.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> UpdateViolation(int violationId)
+        public async Task<IActionResult> UpdateViolation(int id)
         {
-            var violation = await _violationService.GetByIdAsync(violationId);
+            var violation = await _violationService.GetByIdAsync(id);
             var mapViolation = _mapper.Map<ViolationViewModel>(violation);
 
             return View(mapViolation);

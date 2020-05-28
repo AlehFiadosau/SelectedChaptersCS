@@ -2,6 +2,7 @@
 using BusinessLayer.Ecxeptions;
 using BusinessLayer.Entities;
 using BusinessLayer.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using WebCarInspection.ViewModels;
 
 namespace WebCarInspection.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class DriversController : Controller
     {
         private readonly IService<Driver, int> _driverService;
@@ -26,6 +28,7 @@ namespace WebCarInspection.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> ShowDrivers()
         {
             try
@@ -63,9 +66,9 @@ namespace WebCarInspection.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> UpdateDriver(int driverId)
+        public async Task<IActionResult> UpdateDriver(int id)
         {
-            var driver = await _driverService.GetByIdAsync(driverId);
+            var driver = await _driverService.GetByIdAsync(id);
             var mapDriver = _mapper.Map<DriverViewModel>(driver);
 
             return View(mapDriver);

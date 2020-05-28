@@ -4,7 +4,7 @@ namespace DataAccessLayer.DTO
 {
     public class InspectionContext : DbContext
     {
-        public InspectionContext(DbContextOptions options)
+        public InspectionContext(DbContextOptions<InspectionContext> options)
             : base(options)
         {
             Database.EnsureCreated();
