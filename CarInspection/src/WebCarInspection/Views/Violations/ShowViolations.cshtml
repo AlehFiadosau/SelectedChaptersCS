@@ -6,8 +6,8 @@
 
 <div class="flex-row__space-between" style="margin: 1vw;">
     <h5>Violations</h5>
-    <date></date>
-    @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+    <display-current-date></display-current-date>
+    @if (User.Identity.IsAuthenticated && User.IsInRole(RoleNames.Administrator))
     {
         <form method="get" asp-action="CreateViolation" asp-controller="Violations" asp-antiforgery="false">
             <input type="submit" class="btn btn-success" value="Create" />
@@ -29,7 +29,7 @@
                         <div class="alert alert-light" role="alert">@item.Description</div>
                     </li>
                 </ul>
-                @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+                @if (User.Identity.IsAuthenticated && User.IsInRole(RoleNames.Administrator))
                 {
                     <div class="card-body flex-row__space-between">
                         @FormHelper.CreateForm(Html, "Violations", "UpdateViolation", "Edit", @item.Id.ToString())

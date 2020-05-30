@@ -3,7 +3,7 @@ using System;
 
 namespace WebCarInspection.Helpers
 {
-    public class DateTagHelper : TagHelper
+    public class DisplayCurrentDateTagHelper : TagHelper
     {
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

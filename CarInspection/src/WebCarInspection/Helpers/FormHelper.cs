@@ -24,7 +24,7 @@ namespace WebCarInspection.Helpers
             input.Attributes.Add("value", inputName);
             form.InnerHtml.AppendHtml(input);
 
-            var writer = new System.IO.StringWriter();
+            using var writer = new System.IO.StringWriter();
             form.WriteTo(writer, HtmlEncoder.Default);
 
             return new HtmlString(writer.ToString());

@@ -8,11 +8,12 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebCarInspection.Core;
 using WebCarInspection.ViewModels;
 
 namespace WebCarInspection.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = RoleNames.Administrator)]
     public class InspectorsController : Controller
     {
         private readonly IService<Inspector, int> _inspectorService;

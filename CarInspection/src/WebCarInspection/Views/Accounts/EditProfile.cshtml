@@ -1,12 +1,17 @@
-﻿@model RegisterViewModel
+﻿@model UserDto
+
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Edit profile";
 }
 
-<h5 style="margin: 2vw;">Register</h5>
+<div class="flex-row__space-between">
+    <h5 style="margin: 2vw;">Edit profile</h5>
+    <display-current-date></display-current-date>
+</div>
 <div style="width: 30vw; margin: 3vw;">
     <div class="form-group">
-        <form asp-action="Register" asp-controller="Accounts" asp-antiforgery="true">
+        <form asp-action="EditProfile" asp-controller="Accounts" asp-antiforgery="true">
+            <input type="hidden" asp-for="Id" />
             <div>
                 <div class="validation" asp-validation-summary="ModelOnly" />
                 <div class="flex-column">
@@ -37,21 +42,7 @@
                     </div>
                     <span asp-validation-for="Patronic" />
                 </div>
-                <div class="flex-column">
-                    <div>
-                        <label asp-for="Password"></label>
-                        <input class="form-control" type="password" asp-for="Password" />
-                    </div>
-                    <span asp-validation-for="Password" />
-                </div>
-                <div class="flex-column">
-                    <div>
-                        <label asp-for="ConfirmPassword"></label>
-                        <input class="form-control" type="password" asp-for="ConfirmPassword" />
-                    </div>
-                    <span asp-validation-for="ConfirmPassword" />
-                </div>
-                <input type="submit" class="btn btn-success" style="margin: 1vw;" value="Create" />
+                <input type="submit" class="btn btn-success" style="margin: 1vw;" value="Save" />
             </div>
         </form>
     </div>
@@ -60,3 +51,4 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }
+

@@ -2,7 +2,7 @@
 
 namespace WebCarInspection.ViewModels
 {
-    public class RegisterViewModel
+    public class UserRegistrationViewModel
     {
         [Display(Name = "User name")]
         [Required(ErrorMessage = "Required user name")]

@@ -6,8 +6,8 @@
 
 <div class="flex-row__space-between" style="margin: 1vw;">
     <h5>Inspections</h5>
-     <date></date>
-    @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+    <display-current-date></display-current-date>
+    @if (User.Identity.IsAuthenticated && User.IsInRole(RoleNames.Administrator))
     {
         <form method="get" asp-action="CreateInspection" asp-controller="Inspections" asp-antiforgery="false">
             <input type="submit" class="btn btn-success" value="Create" />
@@ -39,7 +39,7 @@
                     @await Component.InvokeAsync("GetDriver", new { id = @item.DriverId })
                     @await Component.InvokeAsync("GetInspector", new { id = @item.InspectorId })
                 </ul>
-                @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+                @if (User.Identity.IsAuthenticated && User.IsInRole(RoleNames.Administrator))
                 {
                     <div class="card-body flex-row__space-between">
                         @FormHelper.CreateForm(Html, "Inspections", "UpdateInspection", "Edit", @item.Id.ToString())

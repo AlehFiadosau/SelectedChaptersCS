@@ -7,11 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebCarInspection.Core;
 using WebCarInspection.ViewModels;
 
 namespace WebCarInspection.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = RoleNames.User)]
     public class DriversController : Controller
     {
         private readonly IService<Driver, int> _driverService;

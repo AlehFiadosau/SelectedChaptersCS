@@ -38,10 +38,10 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="form-inline nav-item">
-                            <a class="nav-link" href="/Accounts/Edit">Profile</a>
+                            <a class="nav-link" href="/Accounts/EditProfile">Profile</a>
                         </li>
                         <li class="form-inline nav-item">
-                            <a class="nav-link" href="/Accounts/Logout">SignUp</a>
+                            <a class="nav-link" href="/Accounts/Logout">LogOut</a>
                         </li>
                     }
                     @if (!User.Identity.IsAuthenticated)
@@ -50,7 +50,7 @@
                             <a class="nav-link" href="/Accounts/Login">SignIn</a>
                         </li>
                         <li class="form-inline nav-item">
-                            <a class="nav-link" href="/Accounts/Register">Register</a>
+                            <a class="nav-link" href="/Accounts/UserRegistration">Registration</a>
                         </li>
                     }
                 </ul>

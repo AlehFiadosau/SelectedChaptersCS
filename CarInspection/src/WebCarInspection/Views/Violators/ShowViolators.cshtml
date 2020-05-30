@@ -6,8 +6,8 @@
 
 <div class="flex-row__space-between" style="margin: 1vw;">
     <h5>Violators</h5>
-    <date></date>
-    @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+    <display-current-date></display-current-date>
+    @if (User.Identity.IsAuthenticated && User.IsInRole(RoleNames.Administrator))
     {
         <form method="get" asp-action="CreateViolator" asp-controller="Violators" asp-antiforgery="false">
             <input type="submit" class="btn btn-success" value="Create" />
@@ -28,7 +28,7 @@
                         <div class="alert alert-light" role="alert">@item.ReinspectionDate.ToString("dd.MM.yyyy")</div>
                     </li>
                 </ul>
-                @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+                @if (User.Identity.IsAuthenticated && User.IsInRole(RoleNames.Administrator))
                 {
                     <div class="card-body flex-row__space-between">
                         @FormHelper.CreateForm(Html, "Violators", "UpdateViolator", "Edit", @item.Id.ToString())

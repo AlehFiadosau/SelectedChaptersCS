@@ -6,8 +6,8 @@
 
     <div class="flex-row__space-between" style="margin: 1vw;">
         <h5>Drivers</h5>
-        <date></date>
-        @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+        <display-current-date></display-current-date>
+        @if (User.Identity.IsAuthenticated && User.IsInRole(RoleNames.User))
         {
             <form method="get" asp-action="CreateDriver" asp-controller="Drivers" asp-antiforgery="false">
                 <input type="submit" class="btn btn-success" value="Create" />
@@ -49,7 +49,7 @@
                     <div class="alert alert-light" role="alert">@item.LicenseNumber</div>
                 </li>
             </ul>
-            @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+            @if (User.Identity.IsAuthenticated && User.IsInRole(RoleNames.User))
             {
                 <div class="card-body flex-row__space-between">
                     @FormHelper.CreateForm(Html, "Drivers", "UpdateDriver", "Edit", @item.Id.ToString())

@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DataAccessLayer.DTO.DB;
 using Microsoft.AspNetCore.Identity;
-using WebCarInspection.ViewModels;
 
 namespace WebCarInspection.Core
 {
     public static class DbInitializer
     {
-        public static Task InitializeAsync(UserManager<UserViewModel> userManager, RoleManager<IdentityRole> roleManager)
+        public static Task InitializeAsync(UserManager<UserDto> userManager, RoleManager<IdentityRole> roleManager)
         {
-            if (userManager == null)
+            if (userManager is null)
             {
                 throw new ArgumentNullException(nameof(userManager));
             }
 
-            if (roleManager == null)
+            if (roleManager is null)
             {
                 throw new ArgumentNullException(nameof(roleManager));
             }
@@ -22,29 +22,29 @@ namespace WebCarInspection.Core
             return InitializeInternal(userManager, roleManager);
         }
 
-        private static async Task InitializeInternal(UserManager<UserViewModel> userManager, RoleManager<IdentityRole> roleManager)
+        private static async Task InitializeInternal(UserManager<UserDto> userManager, RoleManager<IdentityRole> roleManager)
         {
-            if (await roleManager.FindByNameAsync("Administrator") == null)
+            if (await roleManager.FindByNameAsync(RoleNames.Administrator) is null)
             {
-                await roleManager.CreateAsync(new IdentityRole("Administrator"));
+                await roleManager.CreateAsync(new IdentityRole(RoleNames.Administrator));
             }
 
-            if (await roleManager.FindByNameAsync("User") == null)
+            if (await roleManager.FindByNameAsync(RoleNames.User) is null)
             {
-                await roleManager.CreateAsync(new IdentityRole("User"));
+                await roleManager.CreateAsync(new IdentityRole(RoleNames.User));
             }
 
             await InitialProfils(userManager);
         }
 
-        private static async Task InitialProfils(UserManager<UserViewModel> userManager)
+        private static async Task InitialProfils(UserManager<UserDto> userManager)
         {
             string userName = "Solinx";
             string password = "_1User2";
 
-            if (await userManager.FindByNameAsync(userName) == null)
+            if (await userManager.FindByNameAsync(userName) is null)
             {
-                var user = new UserViewModel
+                var user = new UserDto
                 {
                     FirstName = "Oleg",
                     Surname = "Fedosov",
@@ -55,16 +55,16 @@ namespace WebCarInspection.Core
 
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(user, "Administrator");
+                    await userManager.AddToRoleAsync(user, RoleNames.Administrator);
                 }
             }
 
             userName = "MainUser";
             password = "7_Event_14";
 
-            if (await userManager.FindByNameAsync(userName) == null)
+            if (await userManager.FindByNameAsync(userName) is null)
             {
-                var user = new UserViewModel
+                var user = new UserDto
                 {
                     FirstName = "Dima",
                     Surname = "Gobalov",
@@ -75,7 +75,7 @@ namespace WebCarInspection.Core
 
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(user, "User");
+                    await userManager.AddToRoleAsync(user, RoleNames.User);
                 }
             }
         }

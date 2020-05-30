@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace WebCarInspection.ViewModels
+namespace DataAccessLayer.DTO.DB
 {
-    public class UserViewModel : IdentityUser
+    public class UserDto : IdentityUser
     {
         public string FirstName { get; set; }
 

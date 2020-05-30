@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataAccessLayer.DTO.DB;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.DTO
 {
-    public class InspectionContext : DbContext
+    public class InspectionContext : IdentityDbContext<UserDto>
     {
-        public InspectionContext(DbContextOptions<InspectionContext> options)
+        public InspectionContext(DbContextOptions options)
             : base(options)
         {
             Database.EnsureCreated();

@@ -1,6 +1,8 @@
 using AutoMapper;
 using BusinessLayer.Configuration;
 using BusinessLayer.Mapping;
+using DataAccessLayer.DTO;
+using DataAccessLayer.DTO.DB;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -9,7 +11,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebCarInspection.Mapping;
-using WebCarInspection.ViewModels;
 
 namespace WebCarInspection
 {
@@ -39,7 +40,7 @@ namespace WebCarInspection
 
             string connection = Configuration.GetConnectionString("dbConnection");
             services.AddDbContext<InspectionContext>(option => option.UseSqlServer(connection));
-            services.AddIdentity<UserViewModel, IdentityRole>()
+            services.AddIdentity<UserDto, IdentityRole>()
                 .AddEntityFrameworkStores<InspectionContext>();
 
         }

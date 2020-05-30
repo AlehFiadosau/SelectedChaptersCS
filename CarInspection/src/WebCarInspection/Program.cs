@@ -1,10 +1,10 @@
+using DataAccessLayer.DTO.DB;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Threading.Tasks;
 using WebCarInspection.Core;
-using WebCarInspection.ViewModels;
 
 namespace WebCarInspection
 {
@@ -16,7 +16,7 @@ namespace WebCarInspection
             using var scope = host.Services.CreateScope();
 
             var services = scope.ServiceProvider;
-            var userManager = services.GetRequiredService<UserManager<UserViewModel>>();
+            var userManager = services.GetRequiredService<UserManager<UserDto>>();
             var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
             await DbInitializer.InitializeAsync(userManager, rolesManager);

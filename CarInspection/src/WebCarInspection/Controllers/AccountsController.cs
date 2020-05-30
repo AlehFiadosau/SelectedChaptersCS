@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DataAccessLayer.DTO.DB;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -9,11 +10,11 @@ namespace WebCarInspection.Controllers
     [Authorize]
     public class AccountsController : Controller
     {
-        private readonly SignInManager<UserViewModel> _signInManager;
-        private readonly UserManager<UserViewModel> _userManager;
+        private readonly SignInManager<UserDto> _signInManager;
+        private readonly UserManager<UserDto> _userManager;
 
-        public AccountsController(UserManager<UserViewModel> userManager,
-            SignInManager<UserViewModel> signInManager)
+        public AccountsController(UserManager<UserDto> userManager,
+            SignInManager<UserDto> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -21,7 +22,7 @@ namespace WebCarInspection.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Register()
+        public IActionResult UserRegistration()
         {
             return View();
         }
@@ -29,14 +30,14 @@ namespace WebCarInspection.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public Task<IActionResult> Register(RegisterViewModel model)
+        public Task<IActionResult> UserRegistration(UserRegistrationViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return Register(model);
+                return UserRegistration(model);
             }
 
-            return RegisterInternal(model);
+            return UserRegistrationInternal(model);
         }
 
         [HttpGet]
@@ -60,7 +61,7 @@ namespace WebCarInspection.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit()
+        public async Task<IActionResult> EditProfile()
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
@@ -69,14 +70,14 @@ namespace WebCarInspection.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public Task<IActionResult> Edit(UserViewModel model)
+        public Task<IActionResult> EditProfile(UserDto model)
         {
             if (!ModelState.IsValid)
             {
-                return Edit(model);
+                return EditProfile(model);
             }
 
-            return EditInternal(model);
+            return EditProfileInternal(model);
         }
 
         [HttpGet]
@@ -87,9 +88,9 @@ namespace WebCarInspection.Controllers
             return RedirectToAction(nameof(Login));
         }
 
-        private async Task<IActionResult> RegisterInternal(RegisterViewModel model)
+        private async Task<IActionResult> UserRegistrationInternal(UserRegistrationViewModel model)
         {
-            var user = new UserViewModel
+            var user = new UserDto
             {
                 UserName = model.UserName,
                 FirstName = model.FirstName,
@@ -120,7 +121,7 @@ namespace WebCarInspection.Controllers
             }
         }
 
-        private async Task<IActionResult> EditInternal(UserViewModel model)
+        private async Task<IActionResult> EditProfileInternal(UserDto model)
         {
             var user = await _userManager.FindByIdAsync(model.Id);
 
