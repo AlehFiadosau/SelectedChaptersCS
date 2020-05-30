@@ -2,14 +2,17 @@
 using BusinessLayer.Ecxeptions;
 using BusinessLayer.Entities;
 using BusinessLayer.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebCarInspection.Core;
 using WebCarInspection.ViewModels;
 
 namespace WebCarInspection.Controllers
 {
+    [Authorize(Roles = RoleNames.Administrator)]
     public class ViolatorsController : Controller
     {
         private readonly IService<Violator, int> _violatorService;
@@ -25,6 +28,8 @@ namespace WebCarInspection.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> ShowViolators()
         {
             try
@@ -62,9 +67,9 @@ namespace WebCarInspection.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> UpdateViolator(int violatorId)
+        public async Task<IActionResult> UpdateViolator(int id)
         {
-            var violator = await _violatorService.GetByIdAsync(violatorId);
+            var violator = await _violatorService.GetByIdAsync(id);
             var mapViolator = _mapper.Map<ViolatorViewModel>(violator);
 
             return View(mapViolator);

@@ -68,5 +68,6 @@ body {
 .flex-row__space-between {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     flex-wrap: wrap;
 }

@@ -1,14 +1,18 @@
 ﻿@model List<DriverViewModel>
- 
+
 @{
     ViewData["Title"] = "Drivers";
 }
 
     <div class="flex-row__space-between" style="margin: 1vw;">
         <h5>Drivers</h5>
-        <form method="get" asp-action="CreateDriver" asp-controller="Drivers" asp-antiforgery="false">
-            <input type="submit" class="btn btn-success" value="Create" />
-        </form>
+        <display-current-date></display-current-date>
+        @if (User.Identity.IsAuthenticated && User.IsInRole(RoleNames.User))
+        {
+            <form method="get" asp-action="CreateDriver" asp-controller="Drivers" asp-antiforgery="false">
+                <input type="submit" class="btn btn-success" value="Create" />
+            </form>
+        }
     </div>
 <ul style="margin: 2vw;" class="flex-row__space-between">
     @foreach (var item in Model)
@@ -45,16 +49,13 @@
                     <div class="alert alert-light" role="alert">@item.LicenseNumber</div>
                 </li>
             </ul>
-            <div class="card-body flex-row__space-between">
-                <form method="get" asp-action="UpdateDriver" asp-controller="Drivers" asp-antiforgery="false">
-                    <input type="hidden" name="driverId" value="@item.Id" />
-                    <input type="submit" class="btn btn-success" value="Edit" />
-                </form>
-                <form method="get" asp-action="DeleteDriver" asp-controller="Drivers" asp-antiforgery="false">
-                    <input type="hidden" name="driverId" value="@item.Id" />
-                    <input type="submit" class="btn btn-warning" value="Delete" />
-                </form>
-            </div>
+            @if (User.Identity.IsAuthenticated && User.IsInRole(RoleNames.User))
+            {
+                <div class="card-body flex-row__space-between">
+                    @FormHelper.CreateForm(Html, "Drivers", "UpdateDriver", "Edit", @item.Id.ToString())
+                    @FormHelper.CreateForm(Html, "Drivers", "DeleteDriver", "Delete", @item.Id.ToString())
+                </div>
+            }
         </div>
     </li>
     }

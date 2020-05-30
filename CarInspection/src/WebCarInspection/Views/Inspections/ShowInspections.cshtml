@@ -4,12 +4,16 @@
     ViewData["Title"] = "Inspections";
 }
 
-    <div class="flex-row__space-between" style="margin: 1vw;">
-        <h5>Inspections</h5>
+<div class="flex-row__space-between" style="margin: 1vw;">
+    <h5>Inspections</h5>
+    <display-current-date></display-current-date>
+    @if (User.Identity.IsAuthenticated && User.IsInRole(RoleNames.Administrator))
+    {
         <form method="get" asp-action="CreateInspection" asp-controller="Inspections" asp-antiforgery="false">
             <input type="submit" class="btn btn-success" value="Create" />
         </form>
-    </div>
+    }
+</div>
 <ul style="margin: 2vw;" class="flex-row__space-between">
     @foreach (var item in Model)
     {
@@ -35,16 +39,13 @@
                     @await Component.InvokeAsync("GetDriver", new { id = @item.DriverId })
                     @await Component.InvokeAsync("GetInspector", new { id = @item.InspectorId })
                 </ul>
-                <div class="card-body flex-row__space-between">
-                    <form method="get" asp-action="UpdateInspection" asp-controller="Inspections" asp-antiforgery="false">
-                        <input type="hidden" name="inspectionId" value="@item.Id" />
-                        <input type="submit" class="btn btn-success" value="Edit" />
-                    </form>
-                    <form method="get" asp-action="DeleteInspection" asp-controller="Inspections" asp-antiforgery="false">
-                        <input type="hidden" name="inspectionId" value="@item.Id" />
-                        <input type="submit" class="btn btn-warning" value="Delete" />
-                    </form>
-                </div>
+                @if (User.Identity.IsAuthenticated && User.IsInRole(RoleNames.Administrator))
+                {
+                    <div class="card-body flex-row__space-between">
+                        @FormHelper.CreateForm(Html, "Inspections", "UpdateInspection", "Edit", @item.Id.ToString())
+                        @FormHelper.CreateForm(Html, "Inspections", "DeleteInspection", "Delete", @item.Id.ToString())
+                    </div>
+                }
             </div>
         </li>
     }

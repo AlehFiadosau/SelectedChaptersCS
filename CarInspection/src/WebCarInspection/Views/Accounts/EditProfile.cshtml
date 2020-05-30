@@ -1,19 +1,26 @@
-﻿@model InspectorViewModel
+﻿@model UserDto
 
 @{
-    ViewData["Title"] = "Update inspector";
+    ViewData["Title"] = "Edit profile";
 }
 
 <div class="flex-row__space-between">
-    <h5 style="margin: 2vw;">Update inspector</h5>
+    <h5 style="margin: 2vw;">Edit profile</h5>
     <display-current-date></display-current-date>
 </div>
 <div style="width: 30vw; margin: 3vw;">
     <div class="form-group">
-        <form asp-action="UpdateInspector" asp-controller="Inspectors" asp-antiforgery="true">
-            <input type="hidden" name="Id" value="@Model.Id" />
+        <form asp-action="EditProfile" asp-controller="Accounts" asp-antiforgery="true">
+            <input type="hidden" asp-for="Id" />
             <div>
                 <div class="validation" asp-validation-summary="ModelOnly" />
+                <div class="flex-column">
+                    <div>
+                        <label asp-for="UserName"></label>
+                        <input class="form-control" type="text" asp-for="UserName" />
+                    </div>
+                    <span asp-validation-for="UserName" />
+                </div>
                 <div class="flex-column">
                     <div>
                         <label asp-for="FirstName"></label>
@@ -35,25 +42,8 @@
                     </div>
                     <span asp-validation-for="Patronic" />
                 </div>
-                <div class="flex-column">
-                    <div>
-                        <label asp-for="Phone"></label>
-                        <input class="form-control" type="number" asp-for="Phone" />
-                    </div>
-                    <span asp-validation-for="Phone" />
-                </div>
-                <div class="flex-column">
-                    <div>
-                        <label asp-for="PersonalNumber"></label>
-                        <input class="form-control" type="number" asp-for="PersonalNumber" />
-                    </div>
-                    <span asp-validation-for="PersonalNumber" />
-                </div>
                 <input type="submit" class="btn btn-success" style="margin: 1vw;" value="Save" />
             </div>
-        </form>
-        <form method="get" asp-action="ShowInspectors" asp-controller="Inspectors" asp-antiforgery="false">
-            <input type="submit" class="btn btn-secondary" style="margin: 1vw;" value="Cancel" />
         </form>
     </div>
 </div>
@@ -61,5 +51,4 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }
-
 

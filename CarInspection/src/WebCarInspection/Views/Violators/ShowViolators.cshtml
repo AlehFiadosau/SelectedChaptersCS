@@ -4,12 +4,16 @@
     ViewData["Title"] = "Violators";
 }
 
-    <div class="flex-row__space-between" style="margin: 1vw;">
-        <h5>Violators</h5>
+<div class="flex-row__space-between" style="margin: 1vw;">
+    <h5>Violators</h5>
+    <display-current-date></display-current-date>
+    @if (User.Identity.IsAuthenticated && User.IsInRole(RoleNames.Administrator))
+    {
         <form method="get" asp-action="CreateViolator" asp-controller="Violators" asp-antiforgery="false">
             <input type="submit" class="btn btn-success" value="Create" />
         </form>
-    </div>
+    }
+</div>
 <ul style="margin: 2vw;" class="flex-row__space-between">
     @foreach (var item in Model)
     {
@@ -24,16 +28,13 @@
                         <div class="alert alert-light" role="alert">@item.ReinspectionDate.ToString("dd.MM.yyyy")</div>
                     </li>
                 </ul>
-                <div class="card-body flex-row__space-between">
-                    <form method="get" asp-action="UpdateViolator" asp-controller="Violators" asp-antiforgery="false">
-                        <input type="hidden" name="violatorId" value="@item.Id" />
-                        <input type="submit" class="btn btn-success" value="Edit" />
-                    </form>
-                    <form method="get" asp-action="DeleteViolator" asp-controller="Violators" asp-antiforgery="false">
-                        <input type="hidden" name="violatorId" value="@item.Id" />
-                        <input type="submit" class="btn btn-warning" value="Delete" />
-                    </form>
-                </div>
+                @if (User.Identity.IsAuthenticated && User.IsInRole(RoleNames.Administrator))
+                {
+                    <div class="card-body flex-row__space-between">
+                        @FormHelper.CreateForm(Html, "Violators", "UpdateViolator", "Edit", @item.Id.ToString())
+                        @FormHelper.CreateForm(Html, "Violators", "DeleteViolator", "Delete", @item.Id.ToString())
+                    </div>
+                }
             </div>
         </li>
     }

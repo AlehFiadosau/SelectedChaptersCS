@@ -4,12 +4,16 @@
     ViewData["Title"] = "Violations";
 }
 
-    <div class="flex-row__space-between" style="margin: 1vw;">
-        <h5>Violations</h5>
+<div class="flex-row__space-between" style="margin: 1vw;">
+    <h5>Violations</h5>
+    <display-current-date></display-current-date>
+    @if (User.Identity.IsAuthenticated && User.IsInRole(RoleNames.Administrator))
+    {
         <form method="get" asp-action="CreateViolation" asp-controller="Violations" asp-antiforgery="false">
             <input type="submit" class="btn btn-success" value="Create" />
         </form>
-    </div>
+    }
+</div>
 <ul style="margin: 2vw;" class="flex-row__space-between">
     @foreach (var item in Model)
     {
@@ -25,16 +29,13 @@
                         <div class="alert alert-light" role="alert">@item.Description</div>
                     </li>
                 </ul>
-                <div class="card-body flex-row__space-between">
-                    <form method="get" asp-action="UpdateViolation" asp-controller="Violations" asp-antiforgery="false">
-                        <input type="hidden" name="violationId" value="@item.Id" />
-                        <input type="submit" class="btn btn-success" value="Edit" />
-                    </form>
-                    <form method="get" asp-action="DeleteViolation" asp-controller="Violations" asp-antiforgery="false">
-                        <input type="hidden" name="violationId" value="@item.Id" />
-                        <input type="submit" class="btn btn-warning" value="Delete" />
-                    </form>
-                </div>
+                @if (User.Identity.IsAuthenticated && User.IsInRole(RoleNames.Administrator))
+                {
+                    <div class="card-body flex-row__space-between">
+                        @FormHelper.CreateForm(Html, "Violations", "UpdateViolation", "Edit", @item.Id.ToString())
+                        @FormHelper.CreateForm(Html, "Violations", "DeleteViolation", "Delete", @item.Id.ToString())
+                    </div>
+                }
             </div>
         </li>
     }

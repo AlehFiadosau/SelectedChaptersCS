@@ -2,15 +2,18 @@
 using BusinessLayer.Ecxeptions;
 using BusinessLayer.Entities;
 using BusinessLayer.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebCarInspection.Core;
 using WebCarInspection.ViewModels;
 
 namespace WebCarInspection.Controllers
 {
+    [Authorize(Roles = RoleNames.Administrator)]
     public class InspectionsController : Controller
     {
         private readonly IService<Inspection, int> _inspectionService;
@@ -27,6 +30,7 @@ namespace WebCarInspection.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> ShowInspections()
         {
             try
@@ -64,9 +68,9 @@ namespace WebCarInspection.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> UpdateInspection(int inspectionId)
+        public async Task<IActionResult> UpdateInspection(int id)
         {
-            var inspection = await _inspectionService.GetByIdAsync(inspectionId);
+            var inspection = await _inspectionService.GetByIdAsync(id);
             var mapInspection = _mapper.Map<InspectionViewModel>(inspection);
 
             return View(mapInspection);

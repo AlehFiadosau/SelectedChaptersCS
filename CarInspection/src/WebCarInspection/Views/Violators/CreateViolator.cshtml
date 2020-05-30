@@ -4,7 +4,10 @@
     ViewData["Title"] = "Create violator";
 }
 
-<h5 style="margin: 2vw;">Create violator</h5>
+<div class="flex-row__space-between">
+    <h5 style="margin: 2vw;">Create violator</h5>
+    <display-current-date></display-current-date>
+</div>
 <div style="width: 30vw; margin: 3vw;">
     <div class="form-group">
         <form asp-action="CreateViolator" asp-controller="Violators" asp-antiforgery="true">

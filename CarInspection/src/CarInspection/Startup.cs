@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BusinessLayer.Configuration;
 using BusinessLayer.Mapping;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +18,7 @@ namespace CarInspection
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
-            BusinessLayer.Configuration.ServiceCollectionExtensions.RegisterDependencies(configuration, services, connectionName);
+            services.RegisterDependenciesBll(configuration, connectionName);
         }
     }
 }

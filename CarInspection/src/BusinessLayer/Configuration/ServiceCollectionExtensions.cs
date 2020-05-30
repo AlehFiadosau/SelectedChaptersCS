@@ -9,9 +9,9 @@ namespace BusinessLayer.Configuration
 {
     public static class ServiceCollectionExtensions
     {
-        public static void RegisterDependencies(IConfiguration configuration, IServiceCollection services, string connectionName)
+        public static void RegisterDependenciesBll(this IServiceCollection services, IConfiguration configuration, string connectionName)
         {
-            RepositoryCollectionExtensions.RegisterDependencies(configuration, services, connectionName);
+            services.RegisterDependenciesDal(configuration, connectionName);
 
             services.AddScoped<IService<Driver, int>, DriverService>();
             services.AddScoped<IService<Inspection, int>, InspectionService>();

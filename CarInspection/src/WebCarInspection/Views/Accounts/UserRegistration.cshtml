@@ -1,19 +1,24 @@
-﻿@model InspectorViewModel
-
+﻿@model UserRegistrationViewModel
 @{
-    ViewData["Title"] = "Update inspector";
+    ViewData["Title"] = "User registration";
 }
 
 <div class="flex-row__space-between">
-    <h5 style="margin: 2vw;">Update inspector</h5>
+    <h5 style="margin: 2vw;">User registration</h5>
     <display-current-date></display-current-date>
 </div>
 <div style="width: 30vw; margin: 3vw;">
     <div class="form-group">
-        <form asp-action="UpdateInspector" asp-controller="Inspectors" asp-antiforgery="true">
-            <input type="hidden" name="Id" value="@Model.Id" />
+        <form asp-action="UserRegistration" asp-controller="Accounts" asp-antiforgery="true">
             <div>
                 <div class="validation" asp-validation-summary="ModelOnly" />
+                <div class="flex-column">
+                    <div>
+                        <label asp-for="UserName"></label>
+                        <input class="form-control" type="text" asp-for="UserName" />
+                    </div>
+                    <span asp-validation-for="UserName" />
+                </div>
                 <div class="flex-column">
                     <div>
                         <label asp-for="FirstName"></label>
@@ -37,23 +42,20 @@
                 </div>
                 <div class="flex-column">
                     <div>
-                        <label asp-for="Phone"></label>
-                        <input class="form-control" type="number" asp-for="Phone" />
+                        <label asp-for="Password"></label>
+                        <input class="form-control" type="password" asp-for="Password" />
                     </div>
-                    <span asp-validation-for="Phone" />
+                    <span asp-validation-for="Password" />
                 </div>
                 <div class="flex-column">
                     <div>
-                        <label asp-for="PersonalNumber"></label>
-                        <input class="form-control" type="number" asp-for="PersonalNumber" />
+                        <label asp-for="ConfirmPassword"></label>
+                        <input class="form-control" type="password" asp-for="ConfirmPassword" />
                     </div>
-                    <span asp-validation-for="PersonalNumber" />
+                    <span asp-validation-for="ConfirmPassword" />
                 </div>
-                <input type="submit" class="btn btn-success" style="margin: 1vw;" value="Save" />
+                <input type="submit" class="btn btn-success" style="margin: 1vw;" value="Create" />
             </div>
-        </form>
-        <form method="get" asp-action="ShowInspectors" asp-controller="Inspectors" asp-antiforgery="false">
-            <input type="submit" class="btn btn-secondary" style="margin: 1vw;" value="Cancel" />
         </form>
     </div>
 </div>
@@ -61,5 +63,3 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }
-
-
