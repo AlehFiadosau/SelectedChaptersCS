@@ -1,14 +1,11 @@
-﻿using AutoMapper;
-using BusinessLayer.Ecxeptions;
-using BusinessLayer.Entities;
-using BusinessLayer.Interfaces;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using WebCarInspection.Core;
+using WebCarInspection.Interfaces;
 using WebCarInspection.ViewModels;
 
 namespace WebCarInspection.Controllers
@@ -16,37 +13,21 @@ namespace WebCarInspection.Controllers
     [Authorize(Roles = RoleNames.Administrator)]
     public class InspectorsController : Controller
     {
-        private readonly IService<Inspector, int> _inspectorService;
-        private readonly IMapper _mapper;
-        private readonly ILogger<InspectorsController> _logger;
+        private readonly IApiClientHelper _client;
 
-        public InspectorsController(IService<Inspector, int> inspectorService,
-            IMapper mapper,
-            ILogger<InspectorsController> logger)
+        public InspectorsController(IApiClientHelper client)
         {
-            _inspectorService = inspectorService;
-            _mapper = mapper;
-            _logger = logger;
+            _client = client;
         }
 
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ShowInspectors()
         {
-            try
-            {
-                var inspectors = await _inspectorService.GetAllAsync();
-                var data = _mapper.Map<List<InspectorViewModel>>(inspectors);
+            var result = await _client.GetAsync("inspectors");
+            var data = await result.Content.ReadAsAsync<List<InspectorViewModel>>();
 
-                return View(data);
-            }
-            catch (NotFoundException ex)
-            {
-                _logger.LogError(ex.Message);
-                var data = new List<InspectorViewModel>();
-
-                return View(data);
-            }
+            return View(data);
         }
 
         [HttpGet]
@@ -70,55 +51,49 @@ namespace WebCarInspection.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateInspector(int id)
         {
-            var inspector = await _inspectorService.GetByIdAsync(id);
-            var mapInspector = _mapper.Map<InspectorViewModel>(inspector);
+            var result = await _client.GetAsync($"inspectors/updateInspector/{id}");
+            var data = await result.Content.ReadAsAsync<InspectorViewModel>();
 
-            return View(mapInspector);
+            return View(data);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateInspector(InspectorViewModel inspector)
         {
-            try
+            var result = await _client.PutAsync("inspectors", inspector);
+            if (result.StatusCode == HttpStatusCode.OK)
             {
-                var mapInspector = _mapper.Map<Inspector>(inspector);
-                await _inspectorService.UpdateAsync(mapInspector);
-
                 return RedirectToAction(nameof(ShowInspectors));
             }
-            catch (ArgumentException ex)
+            else
             {
-                _logger.LogError(ex.Message);
-                ModelState.AddModelError(string.Empty, ex.Message);
+                var exMessage = await result.Content.ReadAsStringAsync();
+                ModelState.AddModelError(string.Empty, exMessage);
 
                 return await UpdateInspector(inspector.Id);
             }
         }
 
         [HttpGet]
-        public async Task<IActionResult> DeleteInspector(int inspectorId)
+        public async Task<IActionResult> DeleteInspector(int id)
         {
-            var inspector = await _inspectorService.GetByIdAsync(inspectorId);
-            var mapInspector = _mapper.Map<Inspector>(inspector);
-            await _inspectorService.DeleteAsync(mapInspector);
+            await _client.DeleteAsync($"inspectors/{id}");
 
             return RedirectToAction(nameof(ShowInspectors));
         }
 
         private async Task<IActionResult> CreateInspectorInternal(InspectorViewModel inspector)
         {
-            try
+            var result = await _client.PostAsync("inspectors", inspector);
+            if (result.StatusCode == HttpStatusCode.OK)
             {
-                var mapInspector = _mapper.Map<Inspector>(inspector);
-                await _inspectorService.CreateAsync(mapInspector);
-
                 return RedirectToAction(nameof(ShowInspectors));
             }
-            catch (ArgumentException ex)
+            else
             {
-                _logger.LogError(ex.Message);
-                ModelState.AddModelError(string.Empty, ex.Message);
+                var exMessage = await result.Content.ReadAsStringAsync();
+                ModelState.AddModelError(string.Empty, exMessage);
 
                 return CreateInspector();
             }

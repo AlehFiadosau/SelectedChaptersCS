@@ -1,44 +1,31 @@
-﻿using AutoMapper;
-using BusinessLayer.Ecxeptions;
-using BusinessLayer.Entities;
-using BusinessLayer.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
+using WebCarInspection.Interfaces;
 using WebCarInspection.ViewModels;
 
 namespace WebCarInspection.Components
 {
     public class GetDriver : ViewComponent
     {
-        private readonly IService<Driver, int> _driverService;
-        private readonly IMapper _mapper;
-        private readonly ILogger<GetDriver> _logger;
+        private readonly IApiClientHelper _client;
 
-        public GetDriver(IService<Driver, int> driverService,
-            IMapper mapper,
-            ILogger<GetDriver> logger)
+        public GetDriver(IApiClientHelper client)
         {
-            _driverService = driverService;
-            _mapper = mapper;
-            _logger = logger;
+            _client = client;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(int id)
         {
-            try
+            var result = await _client.GetAsync($"drivers/grtDriver/{id}");
+            if (result.StatusCode == HttpStatusCode.OK)
             {
-                var driver = await _driverService.GetByIdAsync(id);
-                var data = _mapper.Map<DriverViewModel>(driver);
+                var data = await result.Content.ReadAsAsync<DriverViewModel>();
                 ViewBag.FirstName = data.FirstName;
+            }
 
-                return View();
-            }
-            catch (NotFoundException ex)
-            {
-                _logger.LogError(ex.Message);
-                return View();
-            }
+            return View();
         }
     }
 }

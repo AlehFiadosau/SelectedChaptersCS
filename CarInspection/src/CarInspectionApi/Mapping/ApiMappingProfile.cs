@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using BusinessLayer.Entities;
-using WebCarInspection.ViewModels;
+using CarInspectionApi.ViewModels;
 
-namespace WebCarInspection.Mapping
+namespace CarInspectionApi.Mapping
 {
-    public class WebMappingProfile : Profile
+    public class ApiMappingProfile : Profile
     {
-        public WebMappingProfile()
+        public ApiMappingProfile()
         {
             CreateMap<DriverViewModel, Driver>().ReverseMap();
             CreateMap<InspectionViewModel, Inspection>().ReverseMap();

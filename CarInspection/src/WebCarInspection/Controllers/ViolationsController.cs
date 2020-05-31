@@ -1,13 +1,10 @@
-﻿using AutoMapper;
-using BusinessLayer.Ecxeptions;
-using BusinessLayer.Entities;
-using BusinessLayer.Interfaces;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using WebCarInspection.Core;
+using WebCarInspection.Interfaces;
 using WebCarInspection.ViewModels;
 
 namespace WebCarInspection.Controllers
@@ -15,37 +12,21 @@ namespace WebCarInspection.Controllers
     [Authorize(Roles = RoleNames.Administrator)]
     public class ViolationsController : Controller
     {
-        private readonly IService<Violation, int> _violationService;
-        private readonly IMapper _mapper;
-        private readonly ILogger<ViolationsController> _logger;
+        private readonly IApiClientHelper _client;
 
-        public ViolationsController(IService<Violation, int> violationService,
-            IMapper mapper,
-            ILogger<ViolationsController> logger)
+        public ViolationsController(IApiClientHelper client)
         {
-            _violationService = violationService;
-            _mapper = mapper;
-            _logger = logger;
+            _client = client;
         }
 
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ShowViolations()
         {
-            try
-            {
-                var violations = await _violationService.GetAllAsync();
-                var data = _mapper.Map<List<ViolationViewModel>>(violations);
+            var result = await _client.GetAsync("violations");
+            var data = await result.Content.ReadAsAsync<List<ViolationViewModel>>();
 
-                return View(data);
-            }
-            catch (NotFoundException ex)
-            {
-                _logger.LogError(ex.Message);
-                var data = new List<ViolationViewModel>();
-
-                return View(data);
-            }
+            return View(data);
         }
 
         [HttpGet]
@@ -69,37 +50,31 @@ namespace WebCarInspection.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateViolation(int id)
         {
-            var violation = await _violationService.GetByIdAsync(id);
-            var mapViolation = _mapper.Map<ViolationViewModel>(violation);
+            var result = await _client.GetAsync($"violations/updateViolation/{id}");
+            var data = await result.Content.ReadAsAsync<ViolationViewModel>();
 
-            return View(mapViolation);
+            return View(data);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateViolation(ViolationViewModel violation)
         {
-            var mapViolation = _mapper.Map<Violation>(violation);
-            await _violationService.UpdateAsync(mapViolation);
-
+            await _client.PutAsync("violations", violation);
             return RedirectToAction(nameof(ShowViolations));
         }
 
         [HttpGet]
-        public async Task<IActionResult> DeleteViolation(int violationId)
+        public async Task<IActionResult> DeleteViolation(int id)
         {
-            var violation = await _violationService.GetByIdAsync(violationId);
-            var mapViolation = _mapper.Map<Violation>(violation);
-            await _violationService.DeleteAsync(mapViolation);
+            await _client.DeleteAsync($"violations/{id}");
 
             return RedirectToAction(nameof(ShowViolations));
         }
 
         private async Task<IActionResult> CreateViolationInternal(ViolationViewModel violation)
         {
-            var mapViolation = _mapper.Map<Violation>(violation);
-            await _violationService.CreateAsync(mapViolation);
-
+            await _client.PostAsync("violations", violation);
             return RedirectToAction(nameof(ShowViolations));
         }
     }

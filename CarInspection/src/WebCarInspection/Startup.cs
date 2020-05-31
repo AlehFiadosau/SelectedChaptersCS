@@ -1,6 +1,3 @@
-using AutoMapper;
-using BusinessLayer.Configuration;
-using BusinessLayer.Mapping;
 using DataAccessLayer.DTO;
 using DataAccessLayer.DTO.DB;
 using Microsoft.AspNetCore.Builder;
@@ -10,7 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WebCarInspection.Mapping;
+using WebCarInspection.Helpers;
+using WebCarInspection.Interfaces;
+using WebCarInspection.ServerInfo;
 
 namespace WebCarInspection
 {
@@ -25,24 +24,17 @@ namespace WebCarInspection
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var apiSettings = Configuration.GetSection(nameof(ApiServerInfo));
+            services.Configure<ApiServerInfo>(apiSettings);
+
+            services.AddHttpClient<IApiClientHelper, ApiClientHelper>();
+
             services.AddControllersWithViews();
-            
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new MappingProfile());
-                mc.AddProfile(new WebMappingProfile());
-            });
-
-            IMapper mapper = mappingConfig.CreateMapper();
-            services.AddSingleton(mapper);
-
-            services.RegisterDependenciesBll(Configuration, "dbConnection");
 
             string connection = Configuration.GetConnectionString("dbConnection");
             services.AddDbContext<InspectionContext>(option => option.UseSqlServer(connection));
             services.AddIdentity<UserDto, IdentityRole>()
                 .AddEntityFrameworkStores<InspectionContext>();
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

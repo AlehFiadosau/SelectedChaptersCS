@@ -1,44 +1,31 @@
-﻿using AutoMapper;
-using BusinessLayer.Ecxeptions;
-using BusinessLayer.Entities;
-using BusinessLayer.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
+using WebCarInspection.Interfaces;
 using WebCarInspection.ViewModels;
 
 namespace WebCarInspection.Components
 {
     public class GetInspector : ViewComponent
     {
-        private readonly IService<Inspector, int> _inspectorService;
-        private readonly IMapper _mapper;
-        private readonly ILogger<GetInspector> _logger;
+        private readonly IApiClientHelper _client;
 
-        public GetInspector(IService<Inspector, int> inspectorService,
-            IMapper mapper,
-            ILogger<GetInspector> logger)
+        public GetInspector(IApiClientHelper client)
         {
-            _inspectorService = inspectorService;
-            _mapper = mapper;
-            _logger = logger;
+            _client = client;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(int id)
         {
-            try
+            var result = await _client.GetAsync($"inspectors/getInspector/{id}");
+            if (result.StatusCode == HttpStatusCode.OK)
             {
-                var inspector = await _inspectorService.GetByIdAsync(id);
-                var data = _mapper.Map<InspectorViewModel>(inspector);
+                var data = await result.Content.ReadAsAsync<InspectorViewModel>();
                 ViewBag.FirstName = data.FirstName;
+            }
 
-                return View();
-            }
-            catch (NotFoundException ex)
-            {
-                _logger.LogError(ex.Message);
-                return View();
-            }
+            return View();
         }
     }
 }
