@@ -18,7 +18,7 @@ namespace WebCarInspection.Components
 
         public async Task<IViewComponentResult> InvokeAsync(int id)
         {
-            var result = await _client.GetAsync($"drivers/grtDriver/{id}");
+            var result = await _client.GetAsync($"drivers/{id}");
             if (result.StatusCode == HttpStatusCode.OK)
             {
                 var data = await result.Content.ReadAsAsync<DriverViewModel>();

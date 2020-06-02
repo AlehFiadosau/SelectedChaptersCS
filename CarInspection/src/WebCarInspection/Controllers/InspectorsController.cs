@@ -51,7 +51,7 @@ namespace WebCarInspection.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateInspector(int id)
         {
-            var result = await _client.GetAsync($"inspectors/updateInspector/{id}");
+            var result = await _client.GetAsync($"inspectors/{id}");
             var data = await result.Content.ReadAsAsync<InspectorViewModel>();
 
             return View(data);

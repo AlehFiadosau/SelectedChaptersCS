@@ -47,7 +47,7 @@ namespace CarInspectionApi.Controllers
             }
         }
 
-        [HttpGet("getInspector/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetInspector(int id)
         {
             try
@@ -81,15 +81,6 @@ namespace CarInspectionApi.Controllers
 
                 return BadRequest(ex.Message);
             }
-        }
-
-        [HttpGet("updateInspector/{id}")]
-        public async Task<IActionResult> UpdateInspector(int id)
-        {
-            var inspector = await _inspectorService.GetByIdAsync(id);
-            var mapInspector = _mapper.Map<InspectorViewModel>(inspector);
-
-            return Ok(mapInspector);
         }
 
         [HttpPut]

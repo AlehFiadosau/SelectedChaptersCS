@@ -51,7 +51,7 @@ namespace WebCarInspection.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateDriver(int id)
         {
-            var result = await _client.GetAsync($"drivers/updateDriver/{id}");
+            var result = await _client.GetAsync($"drivers/{id}");
             var data = await result.Content.ReadAsAsync<DriverViewModel>();
 
             return View(data);
@@ -71,7 +71,7 @@ namespace WebCarInspection.Controllers
                 var exMessage = await result.Content.ReadAsStringAsync();
                 ModelState.AddModelError(string.Empty, exMessage);
 
-                return await UpdateDriver(driver.Id);
+                return await UpdateDriver(driver);
             }
         }
 

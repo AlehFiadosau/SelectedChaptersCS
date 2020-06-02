@@ -50,7 +50,7 @@ namespace WebCarInspection.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateViolation(int id)
         {
-            var result = await _client.GetAsync($"violations/updateViolation/{id}");
+            var result = await _client.GetAsync($"violations/{id}");
             var data = await result.Content.ReadAsAsync<ViolationViewModel>();
 
             return View(data);

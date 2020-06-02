@@ -46,7 +46,7 @@ namespace CarInspectionApi.Controllers
             }
         }
 
-        [HttpGet("getDriver/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetDriver(int id)
         {
             try
@@ -80,15 +80,6 @@ namespace CarInspectionApi.Controllers
 
                 return BadRequest(ex.Message);
             }
-        }
-
-        [HttpGet("updateDriver/{id}")]
-        public async Task<IActionResult> UpdateDriver(int id)
-        {
-            var driver = await _driverService.GetByIdAsync(id);
-            var mapDriver = _mapper.Map<DriverViewModel>(driver);
-
-            return Ok(mapDriver);
         }
 
         [HttpPut]

@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using WebCarInspection.Helpers;
 using WebCarInspection.Interfaces;
-using WebCarInspection.ServerInfo;
 
 namespace WebCarInspection
 {
@@ -24,10 +24,10 @@ namespace WebCarInspection
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var apiSettings = Configuration.GetSection(nameof(ApiServerInfo));
-            services.Configure<ApiServerInfo>(apiSettings);
-
-            services.AddHttpClient<IApiClientHelper, ApiClientHelper>();
+            services.AddHttpClient<IApiClientHelper, ApiClientHelper>(client =>
+            {
+                client.BaseAddress = new Uri(Configuration["ApiServerInfo:BaseAddress"]);
+            });
 
             services.AddControllersWithViews();
 

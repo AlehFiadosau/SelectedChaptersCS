@@ -48,6 +48,15 @@ namespace CarInspectionApi.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetInspection(int id)
+        {
+            var inspection = await _inspectionService.GetByIdAsync(id);
+            var mapInspection = _mapper.Map<InspectionViewModel>(inspection);
+
+            return Ok(mapInspection);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateInspection(InspectionViewModel inspection)
         {
@@ -70,16 +79,6 @@ namespace CarInspectionApi.Controllers
 
                 return BadRequest(ex.Message);
             }
-        }
-
-
-        [HttpGet("updateInspection/{id}")]
-        public async Task<IActionResult> UpdateInspection(int id)
-        {
-            var inspection = await _inspectionService.GetByIdAsync(id);
-            var mapInspection = _mapper.Map<InspectionViewModel>(inspection);
-
-            return Ok(mapInspection);
         }
 
         [HttpPut]

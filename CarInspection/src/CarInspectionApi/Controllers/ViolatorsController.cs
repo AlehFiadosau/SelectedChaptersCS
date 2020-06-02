@@ -46,6 +46,15 @@ namespace CarInspectionApi.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetViolator(int id)
+        {
+            var violator = await _violatorService.GetByIdAsync(id);
+            var mapViolator = _mapper.Map<ViolatorViewModel>(violator);
+
+            return Ok(mapViolator);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateViolator(ViolatorViewModel violator)
         {
@@ -62,15 +71,6 @@ namespace CarInspectionApi.Controllers
 
                 return BadRequest(ex.Message);
             }
-        }
-
-        [HttpGet("updateViolator/{id}")]
-        public async Task<IActionResult> UpdateViolator(int id)
-        {
-            var violator = await _violatorService.GetByIdAsync(id);
-            var mapViolator = _mapper.Map<ViolatorViewModel>(violator);
-
-            return Ok(mapViolator);
         }
 
         [HttpPut]
