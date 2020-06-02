@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using WebCarInspection.Core;
 using WebCarInspection.Interfaces;
@@ -25,7 +24,7 @@ namespace WebCarInspection.Controllers
         public async Task<IActionResult> ShowViolators()
         {
             var result = await _client.GetAsync("violators");
-            var data = await result.Content.ReadAsAsync<List<ViolatorViewModel>>();
+            var data = await _client.ReadAsJsonAsync<List<ViolatorViewModel>>(result);
 
             return View(data);
         }
@@ -52,7 +51,7 @@ namespace WebCarInspection.Controllers
         public async Task<IActionResult> UpdateViolator(int id)
         {
             var result = await _client.GetAsync($"violators/{id}");
-            var data = await result.Content.ReadAsAsync<ViolatorViewModel>();
+            var data = await _client.ReadAsJsonAsync<ViolatorViewModel>(result);
 
             return View(data);
         }

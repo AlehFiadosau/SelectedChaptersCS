@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using WebCarInspection.Interfaces;
 using WebCarInspection.ViewModels;
@@ -21,7 +20,7 @@ namespace WebCarInspection.Components
             var result = await _client.GetAsync($"inspectors/{id}");
             if (result.StatusCode == HttpStatusCode.OK)
             {
-                var data = await result.Content.ReadAsAsync<InspectorViewModel>();
+                var data = await _client.ReadAsJsonAsync<InspectorViewModel>(result);
                 ViewBag.FirstName = data.FirstName;
             }
 

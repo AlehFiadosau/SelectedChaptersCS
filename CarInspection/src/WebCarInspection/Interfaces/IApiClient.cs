@@ -12,5 +12,7 @@ namespace WebCarInspection.Interfaces
         Task<HttpResponseMessage> PutAsync(string requestUrl, object model);
 
         Task<HttpResponseMessage> DeleteAsync(string requestUrl);
+
+        Task<T> ReadAsJsonAsync<T>(HttpResponseMessage httpMessage);
     }
 }
