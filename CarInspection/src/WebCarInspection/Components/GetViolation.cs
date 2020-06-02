@@ -1,44 +1,30 @@
-﻿using AutoMapper;
-using BusinessLayer.Ecxeptions;
-using BusinessLayer.Entities;
-using BusinessLayer.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Threading.Tasks;
+using WebCarInspection.Interfaces;
 using WebCarInspection.ViewModels;
 
 namespace WebCarInspection.Components
 {
     public class GetViolation : ViewComponent
     {
-        private readonly IService<Violation, int> _violationService;
-        private readonly IMapper _mapper;
-        private readonly ILogger<GetViolation> _logger;
+        private readonly IApiClientHelper _client;
 
-        public GetViolation(IService<Violation, int> violationService,
-            IMapper mapper,
-            ILogger<GetViolation> logger)
+        public GetViolation(IApiClientHelper client)
         {
-            _violationService = violationService;
-            _mapper = mapper;
-            _logger = logger;
+            _client = client;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(int id)
         {
-            try
+            var result = await _client.GetAsync($"violations/{id}");
+            if (result.StatusCode == HttpStatusCode.OK)
             {
-                var violation = await _violationService.GetByIdAsync(id);
-                var data = _mapper.Map<ViolationViewModel>(violation);
+                var data = await _client.ReadAsJsonAsync<ViolationViewModel>(result);
                 ViewBag.Name = data.Name;
+            }
 
-                return View();
-            }
-            catch (NotFoundException ex)
-            {
-                _logger.LogError(ex.Message);
-                return View();
-            }
+            return View();
         }
     }
 }

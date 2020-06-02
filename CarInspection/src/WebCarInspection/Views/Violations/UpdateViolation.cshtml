@@ -11,6 +11,7 @@
 <div style="width: 30vw; margin: 3vw;">
     <div class="form-group">
         <form asp-action="UpdateViolation" asp-controller="Violations" asp-antiforgery="true">
+            <input type="hidden" name="Id" value="@Model.Id" />
             <div>
                 <div class="validation" asp-validation-summary="ModelOnly" />
                 <div class="flex-column">

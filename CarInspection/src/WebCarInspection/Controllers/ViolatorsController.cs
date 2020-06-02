@@ -1,13 +1,10 @@
-﻿using AutoMapper;
-using BusinessLayer.Ecxeptions;
-using BusinessLayer.Entities;
-using BusinessLayer.Interfaces;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using WebCarInspection.Core;
+using WebCarInspection.Interfaces;
 using WebCarInspection.ViewModels;
 
 namespace WebCarInspection.Controllers
@@ -15,37 +12,21 @@ namespace WebCarInspection.Controllers
     [Authorize(Roles = RoleNames.Administrator)]
     public class ViolatorsController : Controller
     {
-        private readonly IService<Violator, int> _violatorService;
-        private readonly IMapper _mapper;
-        private readonly ILogger<ViolatorsController> _logger;
+        private readonly IApiClientHelper _client;
 
-        public ViolatorsController(IService<Violator, int> violatorService,
-            IMapper mapper,
-            ILogger<ViolatorsController> logger)
+        public ViolatorsController(IApiClientHelper client)
         {
-            _violatorService = violatorService;
-            _mapper = mapper;
-            _logger = logger;
+            _client = client;
         }
 
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ShowViolators()
         {
-            try
-            {
-                var violators = await _violatorService.GetAllAsync();
-                var data = _mapper.Map<List<ViolatorViewModel>>(violators);
+            var result = await _client.GetAsync("violators");
+            var data = await _client.ReadAsJsonAsync<List<ViolatorViewModel>>(result);
 
-                return View(data);
-            }
-            catch (NotFoundException ex)
-            {
-                _logger.LogError(ex.Message);
-                var data = new List<ViolatorViewModel>();
-
-                return View(data);
-            }
+            return View(data);
         }
 
         [HttpGet]
@@ -69,55 +50,49 @@ namespace WebCarInspection.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateViolator(int id)
         {
-            var violator = await _violatorService.GetByIdAsync(id);
-            var mapViolator = _mapper.Map<ViolatorViewModel>(violator);
+            var result = await _client.GetAsync($"violators/{id}");
+            var data = await _client.ReadAsJsonAsync<ViolatorViewModel>(result);
 
-            return View(mapViolator);
+            return View(data);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateViolator(ViolatorViewModel violator)
         {
-            try
+            var result = await _client.PutAsync("violators", violator);
+            if (result.StatusCode == HttpStatusCode.OK)
             {
-                var mapViolator = _mapper.Map<Violator>(violator);
-                await _violatorService.UpdateAsync(mapViolator);
-
                 return RedirectToAction(nameof(ShowViolators));
             }
-            catch (DateException ex)
+            else
             {
-                _logger.LogError(ex.Message);
-                ModelState.AddModelError(string.Empty, ex.Message);
+                var exMessage = await result.Content.ReadAsStringAsync();
+                ModelState.AddModelError(string.Empty, exMessage);
 
                 return await UpdateViolator(violator.Id);
             }
         }
 
         [HttpGet]
-        public async Task<IActionResult> DeleteViolator(int violatorId)
+        public async Task<IActionResult> DeleteViolator(int id)
         {
-            var violator = await _violatorService.GetByIdAsync(violatorId);
-            var mapViolator = _mapper.Map<Violator>(violator);
-            await _violatorService.DeleteAsync(mapViolator);
+            await _client.DeleteAsync($"violators/{id}");
 
             return RedirectToAction(nameof(ShowViolators));
         }
 
         private async Task<IActionResult> CreateViolatorInternal(ViolatorViewModel violator)
         {
-            try
+            var result = await _client.PostAsync("violators", violator);
+            if (result.StatusCode == HttpStatusCode.OK)
             {
-                var mapViolator = _mapper.Map<Violator>(violator);
-                await _violatorService.CreateAsync(mapViolator);
-
                 return RedirectToAction(nameof(ShowViolators));
             }
-            catch (DateException ex)
+            else
             {
-                _logger.LogError(ex.Message);
-                ModelState.AddModelError(string.Empty, ex.Message);
+                var exMessage = await result.Content.ReadAsStringAsync();
+                ModelState.AddModelError(string.Empty, exMessage);
 
                 return CreateViolator();
             }
